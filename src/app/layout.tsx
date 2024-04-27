@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Unbounded } from "next/font/google";
+import { fontText } from "@/lib/fonts";
 import "./globals.css";
+import { cn } from "@/lib/utils";
 
-const inter = Inter({ subsets: ["latin"] });
+const unbounded = Unbounded({
+  style: "normal",
+  variable: "--font-unbounded",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +21,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={cn("", unbounded.variable, fontText.variable)}>
+        {children}
+      </body>
     </html>
   );
 }
