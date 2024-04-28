@@ -15,6 +15,7 @@
     "shadcn:add": "pnpm dlx shadcn-ui@latest add"
   },
   "dependencies": {
+    "@phosphor-icons/react": "^2.1.5",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.376.0",
