@@ -1,3 +1,5 @@
+import { NavItem } from '@/types';
+
 export const siteConfig = {
   name: 'RealXDeal',
   url: '',
@@ -21,6 +23,38 @@ export const siteConfig = {
       href: '/'
     }
   ],
+  sideNav: [
+    {
+      title: 'Home',
+      href: '/home',
+      icon: 'GameController'
+    },
+    {
+      title: 'Profile',
+      href: '/profile',
+      icon: 'Alien'
+    },
+    {
+      title: 'Task',
+      href: '/tasks',
+      icon: 'PuzzlePiece'
+    },
+    {
+      title: 'LeaderBoard',
+      href: '/leadboard',
+      icon: 'Medal'
+    },
+    {
+      title: 'Marketplace',
+      href: '/marketplace',
+      icon: 'Storefront'
+    },
+    {
+      title: 'Settings',
+      href: '/settings',
+      icon: 'GearSix'
+    }
+  ] satisfies NavItem[],
   links: {
     twitter: '',
     discord: '',

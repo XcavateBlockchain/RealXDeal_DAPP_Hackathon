@@ -18,13 +18,13 @@ const config = {
     // },
     extend: {
       colors: {
-        // border: "hsl(var(--border))",
-        background: 'hsla(219, 33%, 34%)',
+        border: '#27354E',
+        background: '#27354E',
         foreground: 'hsla(0, 0%, 100%)',
         primary: {
-          DEFAULT: 'hsla(219, 33%, 34%)',
+          DEFAULT: '#27354E',
           200: 'hsla(200, 49%, 56%)',
-          300: 'hsla(334, 58%, 68%)',
+          300: '#DC7DA6',
           400: 'hsla(30, 75%, 70%)',
           foreground: 'hsla(0, 0%, 80%)'
         },
@@ -58,7 +58,8 @@ const config = {
         heading: ['var(--font-heading)', ...fontFamily.sans]
       },
       boxShadow: {
-        header: '0px 0px 30px 0px rgba(0, 0, 0, 0.32)'
+        header: '0px 0px 30px 0px rgba(0, 0, 0, 0.32)',
+        card: '0px 0px 30px 0px rgba(0, 0, 0, 0.32)'
       },
       keyframes: {
         'accordion-down': {
