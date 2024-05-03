@@ -1,18 +1,33 @@
-import { Card } from '@/components/cards/card';
+import { Card, CardWithoutHeading } from '@/components/cards/card';
 import { Shell } from '@/components/shell';
 import { TaskCard } from '../tasks/page';
 import Image from 'next/image';
 import { Icons } from '@/components/icons';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { PlayerStats } from '@/components/cards/player-stats-card';
 
 export default function App() {
   return (
     <Shell>
       <section className=" flex w-full gap-[54px]">
-        <div className="flex h-full w-[40%] items-start gap-8 rounded-lg border border-[#3B4F74] bg-black/[0.20] px-4 py-6 shadow backdrop-blur-[8px] backdrop-filter">
+        <CardWithoutHeading className="w-[40%]">
           <PlayerStats title="Guesses" value={10} />
           <PlayerStats title="Correct " value={6} />
           <PlayerStats title="Failed " value={0} />
+        </CardWithoutHeading>
+
+        <div className="flex w-[60%] items-start gap-[29px]">
+          <div className="flex h-full w-[172px] items-end justify-center rounded-lg border border-primary-400 bg-primary-400/[0.24] pb-2.5">
+            <Button variant={'warning'} size={'md'}>
+              Demo Mode
+            </Button>
+          </div>
+          <div className="flex h-full w-[172px] items-end justify-center rounded-lg border border-primary-200 bg-primary-200/[0.24] pb-2.5">
+            <Button variant={'secondary'} size={'md'}>
+              Live Mode
+            </Button>
+          </div>
         </div>
       </section>
       <section className="flex items-start gap-[54px]">
@@ -27,7 +42,7 @@ export default function App() {
           </div>
         </Card>
         <Card className="w-[60%]" title="NFTs Collected">
-          <div className="grid grid-cols-4 gap-6">
+          <div className="grid h-full w-full grid-cols-4 gap-6">
             <NFTCard />
             <NFTCard />
             <NFTCard />
@@ -99,20 +114,6 @@ const LeadBoardCard = ({ points, winner }: LeadProps) => {
       </div>
 
       <span className="text-[0.875rem] text-primary-foreground">{points} PTS</span>
-    </div>
-  );
-};
-
-const PlayerStats = ({ title, value }: { title: string; value: number }) => {
-  return (
-    <div className="flex flex-col gap-2">
-      <span className="text-[0.9ren]/[1.5rem] flex w-full rounded bg-[#4F6542]/[0.24] px-4 text-[#4F6542] backdrop-blur-[2px]">
-        {title}
-      </span>
-
-      <div className="flex size-full items-center justify-center rounded-lg border border-[#4F6542] bg-[#4F6542]/[0.24] p-4">
-        <span className="">{value}</span>
-      </div>
     </div>
   );
 };

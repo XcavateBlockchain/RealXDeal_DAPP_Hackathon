@@ -8,11 +8,16 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          'bg-primary-300 hover:bg-primary-300/85 text-foreground  disabled:opacity-50 disabled:pointer-events-none transition-colors'
+          'bg-primary-300 hover:bg-primary-300/85 text-foreground  disabled:opacity-50 disabled:pointer-events-none transition-colors',
+        secondary:
+          'bg-primary-200 hover:bg-primary-200/85 text-foreground  disabled:opacity-50 disabled:pointer-events-none transition-colors',
+        warning:
+          'bg-primary-400 hover:bg-primary-400/85 text-foreground  disabled:opacity-50 disabled:pointer-events-none transition-colors'
       },
       size: {
         default: 'py-[18px] px-6 text-[1rem]/[1.2rem]',
-        lg: 'py-4 px-[45px] text-[1rem]'
+        lg: 'py-4 px-[45px] text-[1rem]',
+        md: 'py-2 px-6 text-[0.75rem]/[1.1875rem]'
       },
       fullWidth: {
         true: 'w-full'

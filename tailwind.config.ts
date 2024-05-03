@@ -18,7 +18,7 @@ const config = {
     // },
     extend: {
       colors: {
-        border: '#27354E',
+        border: '#3B4F74',
         background: '#27354E',
         foreground: 'hsla(0, 0%, 100%)',
         primary: {

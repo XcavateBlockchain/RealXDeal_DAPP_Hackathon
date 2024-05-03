@@ -1,44 +1,51 @@
 import { Card } from '@/components/cards/card';
+import { NFTCard } from '@/components/cards/nft-card';
 import { Shell } from '@/components/shell';
+import { siteConfig } from '@/config/site';
 import Image from 'next/image';
 
 export default function Page() {
+  const data = siteConfig.nfts.slice(1, 5);
   return (
     <Shell>
       <Card title="Trending">
-        <div className="grid grid-cols-4 gap-[13px]">
-          <NFTCard />
-          <NFTCard />
-          <NFTCard />
-          <NFTCard />
+        <div className="grid h-full w-full grid-cols-4 gap-[13px]">
+          {data.map((nft: any) => (
+            <NFTCard
+              key={nft.nftId}
+              nftId={nft.nftId}
+              image={nft.image}
+              owner={nft.owner}
+              type={nft.type}
+            />
+          ))}
         </div>
       </Card>
+      <section className="flex w-full gap-[120px] py-[30px]">
+        <input
+          type="text"
+          placeholder="Search"
+          className="w-full rounded-lg border border-border bg-primary px-4 py-2 placeholder:text-border focus:outline-none"
+        />
+        <div></div>
+      </section>
+
+      <section className="flex w-full flex-col gap-8">
+        <h2 className="text-[1rem] font-medium">Listings</h2>
+
+        <div className="grid h-full w-full grid-cols-4 gap-[23px]">
+          {siteConfig.nfts.map((nft: any) => (
+            <NFTCard
+              key={nft.nftId}
+              nftId={nft.nftId}
+              image={nft.image}
+              owner={nft.owner}
+              type={nft.type}
+              isShadow
+            />
+          ))}
+        </div>
+      </section>
     </Shell>
   );
 }
-
-const NFTCard = () => {
-  return (
-    <div className="relative flex w-[264px] flex-col gap-4 rounded-lg border border-primary-300/[0.32]">
-      <Image
-        src={'/images/nft.png'}
-        alt="nft"
-        width={264}
-        height={184}
-        priority
-        className="rounded-t-lg"
-      />
-
-      <div className="flex flex-col gap-2.5 px-[17px] pb-[17px]">
-        <div className=" space-x-1 text-[0.9rem]  font-light">
-          <span>#164</span> | <span className="ml-[2px]">Blue</span>
-        </div>
-
-        <div className="flex items-center justify-between text-[0.9rem] font-light">
-          <span>Victor X</span>
-          <span className="text-primary-foreground">5 minutes ago</span>
-        </div>
-      </div>
-    </div>
-  );
-};
