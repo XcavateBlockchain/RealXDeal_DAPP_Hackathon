@@ -26,6 +26,7 @@ const config = {
           200: 'hsla(200, 49%, 56%)',
           300: '#DC7DA6',
           400: 'hsla(30, 75%, 70%)',
+          500: '#172234',
           foreground: 'hsla(0, 0%, 80%)'
         },
         secondary: {

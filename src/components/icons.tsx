@@ -14,7 +14,7 @@ import {
 
 export type IconType = keyof typeof Icons;
 
-type IconProps = React.HTMLAttributes<SVGElement>;
+export type IconProps = React.HTMLAttributes<SVGElement>;
 
 export const Icons = {
   wallet: Wallet,
@@ -28,6 +28,33 @@ export const Icons = {
   Storefront: Storefront,
   GearSix: GearSix,
   Power: Power,
+  close: (props: IconProps) => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" {...props}>
+      <path
+        d="M12.3955 7.59497L7.60352 12.387"
+        stroke="white"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M12.397 12.3899L7.60095 7.5929"
+        stroke="white"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M14.3345 0.750244H5.66549C2.64449 0.750244 0.750488 2.88924 0.750488 5.91624V14.0842C0.750488 17.1112 2.63549 19.2502 5.66549 19.2502H14.3335C17.3645 19.2502 19.2505 17.1112 19.2505 14.0842V5.91624C19.2505 2.88924 17.3645 0.750244 14.3345 0.750244Z"
+        stroke="white"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
   goldMedal: (props: IconProps) => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 23" fill="none" {...props}>
       <path
@@ -83,8 +110,8 @@ export const Icons = {
           y2="16.6387"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#FFC600" />
-          <stop offset="1" stop-color="#FFDE69" />
+          <stop stopColor="#FFC600" />
+          <stop offset="1" stopColor="#FFDE69" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_311_3749"
@@ -94,8 +121,8 @@ export const Icons = {
           y2="12.9533"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#FFFCDD" />
-          <stop offset="1" stop-color="#FFE896" />
+          <stop stopColor="#FFFCDD" />
+          <stop offset="1" stopColor="#FFE896" />
         </linearGradient>
       </defs>
     </svg>
@@ -163,8 +190,8 @@ export const Icons = {
           y2="16.2559"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#9CA1A3" />
-          <stop offset="1" stop-color="#9CA1A3" stop-opacity="0" />
+          <stop stopColor="#9CA1A3" />
+          <stop offset="1" stopColor="#9CA1A3" stop-opacity="0" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_311_3767"
@@ -174,9 +201,9 @@ export const Icons = {
           y2="13.6503"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#F1F5F5" />
-          <stop offset="0.0001" stop-color="white" />
-          <stop offset="1" stop-color="#F1F5F5" />
+          <stop stopColor="#F1F5F5" />
+          <stop offset="0.0001" stopColor="white" />
+          <stop offset="1" stopColor="#F1F5F5" />
         </linearGradient>
       </defs>
     </svg>
@@ -238,24 +265,11 @@ export const Icons = {
           y2="13.6502"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#FCFF80" />
-          <stop offset="0.401042" stop-color="#FDE870" />
-          <stop offset="1" stop-color="#FFC759" />
+          <stop stopColor="#FCFF80" />
+          <stop offset="0.401042" stopColor="#FDE870" />
+          <stop offset="1" stopColor="#FFC759" />
         </linearGradient>
       </defs>
-    </svg>
-  ),
-  rectangle: (props: IconProps) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 100 85"
-      fill="currentColor"
-      {...props}
-    >
-      <path
-        d="M0.5 4.00001C0.5 2.06701 2.067 0.5 4 0.5H96C97.933 0.5 99.5 2.067 99.5 4V79.7748C99.5 82.1977 97.0812 83.951 94.7342 83.2496C86.4259 80.7666 69.7217 76.5 53 76.5C34.5591 76.5 14.3248 81.145 5.04829 83.5598C2.76331 84.1546 0.5 82.4334 0.5 80.0878V4.00001Z"
-        fillOpacity="0.24"
-      />
     </svg>
   )
 };
