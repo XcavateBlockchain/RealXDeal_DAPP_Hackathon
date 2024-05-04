@@ -14,7 +14,7 @@ export function Card({ className, title, description, children, ...props }: Card
       )}
       {...props}
     >
-      <div className="flex flex-col items-start gap-[18px]">
+      <div className="flex w-full justify-between  gap-[18px]">
         <h2 className="text-[1rem] font-medium">{title}</h2>
         {description ? (
           <p className="text-[0.875rem]/[1.5rem] font-light">{description}</p>

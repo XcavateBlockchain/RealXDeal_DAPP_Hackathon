@@ -71,3 +71,11 @@
       @apply bg-background text-foreground;
     }
   }
+
+  .game-play-bg {
+    background-image: url("/images/gameplay.png");
+    background-size:cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
