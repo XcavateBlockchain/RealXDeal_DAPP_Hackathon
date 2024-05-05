@@ -94,9 +94,9 @@ export default function GamePlay() {
                       width="164.639"
                       height="173.166"
                       filterUnits="userSpaceOnUse"
-                      colorInterpolationFilters="sRGB"
+                      color-interpolation-filters="sRGB"
                     >
-                      <feFlood floodOpacity="0" result="BackgroundImageFix" />
+                      <feFlood flood-opacity="0" result="BackgroundImageFix" />
                       <feBlend
                         mode="normal"
                         in="SourceGraphic"
