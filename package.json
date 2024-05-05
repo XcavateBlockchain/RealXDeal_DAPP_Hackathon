@@ -17,9 +17,12 @@
   "dependencies": {
     "@phosphor-icons/react": "^2.1.5",
     "@polkadot/api": "^11.0.2",
+    "@polkadot/extension-dapp": "^0.47.3",
+    "@polkadot/extension-inject": "^0.47.3",
     "@radix-ui/react-alert-dialog": "^1.0.5",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "dotenv": "^16.4.5",
     "lucide-react": "^0.376.0",
     "next": "14.2.3",
     "react": "^18.3.1",

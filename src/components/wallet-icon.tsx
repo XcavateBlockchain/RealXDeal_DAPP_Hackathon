@@ -157,7 +157,7 @@ export const ConnectWalletIcon = (props: IconProps) => (
 export type WalletIconType = keyof typeof WalletIcon;
 
 export const WalletIcon = {
-  tailsManWallet: (props: IconProps) => (
+  talismanWallet: (props: IconProps) => (
     <svg
       viewBox="0 0 42 42"
       fill="none"

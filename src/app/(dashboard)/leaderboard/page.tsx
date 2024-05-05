@@ -5,16 +5,14 @@ import { siteConfig } from '@/config/site';
 import Image from 'next/image';
 import { Icons } from '@/components/icons';
 import { cn } from '@/lib/utils';
+import api from '@/lib/polkadot';
+
 type LeaderProps = {
   points: number;
   winner?: boolean;
 };
 
-async function fetchLeaderBoard() {
-  // get the leaderboard
-}
-
-export async function LeaderBoardCard({ points, winner }: LeaderProps) {
+export function LeaderBoardCard({ points, winner }: LeaderProps) {
   return (
     <div className={cn('flex w-full items-center justify-between rounded-lg p-2')}>
       <div className="flex items-center gap-6">
@@ -33,7 +31,8 @@ export async function LeaderBoardCard({ points, winner }: LeaderProps) {
     </div>
   );
 }
-const ChampionCard = () => {
+async function ChampionCard() {
+  const addresses = (await api.query.elections.nextEraNonReservedValidators()).toHuman();
   return (
     <>
       <div className="flex justify-between">
@@ -53,8 +52,8 @@ const ChampionCard = () => {
       </div>
     </>
   );
-};
-export default function Page() {
+}
+export default async function Page() {
   return (
     <Shell>
       <div className="flex justify-between">
