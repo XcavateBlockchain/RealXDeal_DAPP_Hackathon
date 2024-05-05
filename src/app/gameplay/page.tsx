@@ -9,7 +9,7 @@ import { web3Enable, web3FromAddress } from '@polkadot/extension-dapp';
 import { getApi } from '@/lib/polkadot';
 
 export default function GamePlay() {
-  const address = '5CS5SfC1xCGM9b16ZvqNuWU4VqzV67bmdsHDXe5arDBS3DBA'; // get this from local storage
+  const address = '5CSFhuBPkG1SDyHseSHh23Kg89oYVysjRmXH5ea3F3fzEyx5'; // get this from local storage
   const [guess, setGuess] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
