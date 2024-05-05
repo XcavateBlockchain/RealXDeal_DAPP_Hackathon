@@ -5,7 +5,6 @@ import { siteConfig } from '@/config/site';
 import Image from 'next/image';
 import { Icons } from '@/components/icons';
 import { cn } from '@/lib/utils';
-import api from '@/lib/polkadot';
 
 type LeaderProps = {
   points: number;
@@ -32,7 +31,6 @@ export function LeaderBoardCard({ points, winner }: LeaderProps) {
   );
 }
 async function ChampionCard() {
-  const addresses = (await api.query.elections.nextEraNonReservedValidators()).toHuman();
   return (
     <>
       <div className="flex justify-between">

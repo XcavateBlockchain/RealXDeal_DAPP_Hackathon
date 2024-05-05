@@ -1,7 +1,51 @@
+'use client';
+
 import { Shell } from '@/components/shell';
 import { Button } from '@/components/ui/button';
+import { ApiPromise, WsProvider } from '@polkadot/api';
 import Image from 'next/image';
+import { useState } from 'react';
+import { web3Enable, web3FromAddress } from '@polkadot/extension-dapp';
+import { getApi } from '@/lib/polkadot';
+
 export default function GamePlay() {
+  const address = '5CS5SfC1xCGM9b16ZvqNuWU4VqzV67bmdsHDXe5arDBS3DBA'; // get this from local storage
+  const [guess, setGuess] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleGuessChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setGuess(event.target.value);
+  };
+
+  const submitGuess = async () => {
+    if (!guess) return;
+
+    setIsSubmitting(true);
+
+    try {
+      const api = await getApi();
+      const extensions = await web3Enable('RealXChange');
+      const injected = await web3FromAddress(address);
+      const extrinsic = api.tx.system.remark(guess);
+      const signer = injected.signer;
+
+      const unsub = await extrinsic.signAndSend(address, { signer }, result => {
+        if (result.status.isInBlock) {
+          console.log(`Completed at block hash #${result.status.asInBlock.toString()}`);
+        } else if (result.status.isBroadcast) {
+          console.log('Broadcasting the guess...');
+        }
+      });
+
+      console.log('Transaction sent:', unsub);
+
+      setIsSubmitting(false);
+    } catch (error) {
+      console.error('Failed to submit guess:', error);
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <>
       <Shell className="px-20">
@@ -63,10 +107,15 @@ export default function GamePlay() {
                 </p>
                 <input
                   type="text"
+                  value={guess}
+                  onChange={handleGuessChange}
                   className="mt-4 rounded-md border-[1px] border-[#57A0C5] bg-transparent p-3 placeholder:text-center"
                   placeholder="Enter your guess"
+                  disabled={isSubmitting}
                 />
-                <Button className="mt-4">Guess Now</Button>
+                <Button className="mt-4" onClick={submitGuess} disabled={isSubmitting}>
+                  {isSubmitting ? 'Submitting...' : 'Guess Now'}
+                </Button>
               </div>
               <div className="flex w-1/3  justify-end">
                 <svg
