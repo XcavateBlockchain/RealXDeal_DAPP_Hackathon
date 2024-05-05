@@ -7,6 +7,8 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { PlayerStats } from '@/components/cards/player-stats-card';
 import { LeadBoardCard } from '@/components/cards/leadboard-card';
+import Link from 'next/link';
+
 export default function App() {
   return (
     <Shell>
@@ -24,9 +26,11 @@ export default function App() {
             </Button>
           </div>
           <div className="flex h-full w-[172px] items-end justify-center rounded-lg border border-primary-200 bg-primary-200/[0.24] pb-2.5">
-            <Button variant={'secondary'} size={'md'}>
-              Live Mode
-            </Button>
+            <Link href={`/gameplay`}>
+              <Button variant={'secondary'} size={'md'}>
+                Live Mode
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -87,5 +91,3 @@ const NFTCard = () => {
     </div>
   );
 };
-
-

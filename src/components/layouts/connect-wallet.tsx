@@ -69,12 +69,12 @@ export default function ConnectWallet() {
             icon="talismanWallet"
             name="Talisman"
             isRecommended
-            onClick={() => handleConnect('Talisman')}
+            onClick={() => handleConnect('talisman')}
           />
           <WalletButton
             icon="subWallet"
             name="Subwallet"
-            onClick={() => handleConnect('Subwallet')}
+            onClick={() => handleConnect('subwallet-js')}
           />
         </div>
       </AlertDialogContent>
