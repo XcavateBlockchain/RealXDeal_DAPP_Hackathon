@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.5",
+    "@polkadot/api": "^11.0.2",
     "@radix-ui/react-alert-dialog": "^1.0.5",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",

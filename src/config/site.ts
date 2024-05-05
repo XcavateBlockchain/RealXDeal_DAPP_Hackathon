@@ -16,7 +16,7 @@ export const siteConfig = {
     },
     {
       title: 'Marketplace',
-      href: '/'
+      href: '/marketplace'
     },
     {
       title: 'About us',
@@ -41,7 +41,7 @@ export const siteConfig = {
     },
     {
       title: 'LeaderBoard',
-      href: '/leadboard',
+      href: '/leaderboard',
       icon: 'Medal'
     },
     {

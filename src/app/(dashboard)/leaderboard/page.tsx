@@ -5,11 +5,16 @@ import { siteConfig } from '@/config/site';
 import Image from 'next/image';
 import { Icons } from '@/components/icons';
 import { cn } from '@/lib/utils';
-type LeadProps = {
+type LeaderProps = {
   points: number;
   winner?: boolean;
 };
-export function LeadBoardCard({ points, winner }: LeadProps) {
+
+async function fetchLeaderBoard() {
+  // get the leaderboard
+}
+
+export async function LeaderBoardCard({ points, winner }: LeaderProps) {
   return (
     <div className={cn('flex w-full items-center justify-between rounded-lg p-2')}>
       <div className="flex items-center gap-6">
@@ -34,16 +39,16 @@ const ChampionCard = () => {
       <div className="flex justify-between">
         <Card className="w-[55%]" title="Realxdeal Champion" description="View Full List">
           <div className="flex w-full flex-col gap-3">
-            <LeadBoardCard points={2000} winner />
-            <LeadBoardCard points={2000} winner />
-            <LeadBoardCard points={2000} winner />
-            <LeadBoardCard points={2000} />
-            <LeadBoardCard points={2000} />
-            <LeadBoardCard points={2000} />
+            <LeaderBoardCard points={2000} winner />
+            <LeaderBoardCard points={2000} winner />
+            <LeaderBoardCard points={2000} winner />
+            <LeaderBoardCard points={2000} />
+            <LeaderBoardCard points={2000} />
+            <LeaderBoardCard points={2000} />
           </div>
         </Card>
         <div className="flex w-[45%] flex-col items-end justify-center">
-          <Image src="/images/purple.png" width={200} height={200} />
+          <Image src="/images/purple.png" width={200} height={200} alt="champion crown" />
         </div>
       </div>
     </>
