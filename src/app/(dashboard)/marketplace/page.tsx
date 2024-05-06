@@ -1,11 +1,22 @@
 import { Card } from '@/components/cards/card';
 import { NFTCard } from '@/components/cards/nft-card';
 import { Shell } from '@/components/shell';
+import { Button } from '@/components/ui/button';
 import { siteConfig } from '@/config/site';
 import Image from 'next/image';
 
-export default function Page() {
+const collections = ['All', 'Blue', 'Red', 'Pink', 'Orange', 'Purple', 'Teal', 'Coral'];
+
+export default function Page({
+  searchParams: { collection }
+}: {
+  searchParams: { collection: string };
+}) {
   const data = siteConfig.nfts.slice(1, 5);
+
+  const BASE_URL = '/marketplace';
+  const selected = collection === undefined ? 'All' : collection;
+
   return (
     <Shell>
       <Card title="Trending">
@@ -27,7 +38,24 @@ export default function Page() {
           placeholder="Search"
           className="w-full rounded-lg border border-border bg-primary px-4 py-2 placeholder:text-border focus:outline-none"
         />
-        <div></div>
+        <div className="flex items-center gap-[18px]">
+          {collections.map((collection: string) => {
+            const active = selected === collection;
+            return (
+              <Button
+                key={collection}
+                variant={'outline'}
+                size={'sm'}
+                href={`/marketplace?collection=${collection}`}
+                className={
+                  active ? 'border-primary-300 bg-primary-300/15 text-primary-300' : ''
+                }
+              >
+                {collection}
+              </Button>
+            );
+          })}
+        </div>
       </section>
 
       <section className="flex w-full flex-col gap-8">

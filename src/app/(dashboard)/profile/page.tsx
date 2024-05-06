@@ -19,7 +19,7 @@ type CircleCardProps = {
   color: string;
 };
 
-const filterButtons = ['All', 'Blue', 'Red', 'Pink', 'Orange', 'Purple', 'Teal', 'Coral'];
+const collections = ['All', 'Blue', 'Red', 'Pink', 'Orange', 'Purple', 'Teal', 'Coral'];
 
 const ProfileNFTCard = ({ isShadow, ...nft }: ProfileNFTCardProps) => {
   return (
@@ -111,7 +111,13 @@ const CircleCard = ({ color }: CircleCardProps) => {
   );
 };
 
-export default function Profile() {
+export default function Page({
+  searchParams: { collection }
+}: {
+  searchParams: { collection: string };
+}) {
+  const BASE_URL = '/profile';
+  const selected = collection === undefined ? 'All' : collection;
   return (
     <>
       <Shell>
@@ -185,14 +191,20 @@ export default function Profile() {
           </ul>
         </section>
         <div className="flex gap-3">
-          {filterButtons.map((button, i) => {
+          {collections.map((collection: string) => {
+            const active = selected === collection;
             return (
-              <button
-                key={i}
-                className={` rounded-md border border-[#CCCCCC80] px-3 py-1 text-sm font-light text-[#CCCCCC80] shadow-md`}
+              <Button
+                key={collection}
+                variant={'outline'}
+                size={'sm'}
+                href={`${BASE_URL}?collection=${collection}`}
+                className={
+                  active ? 'border-primary-300 bg-primary-300/15 text-primary-300' : ''
+                }
               >
-                {button}
-              </button>
+                {collection}
+              </Button>
             );
           })}
         </div>
