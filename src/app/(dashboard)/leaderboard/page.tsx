@@ -61,7 +61,7 @@ export default async function Page() {
             src="/images/user.png"
             alt="Rounded avatar"
           />
-          <p className=" ml-3">Nikku Dev</p>
+          <p className=" ml-3">Deal Real Dev</p>
           <span className="me-2 rounded-xl bg-[#DC7DA63D] px-2.5  py-0.5 text-xs text-white shadow-none ">
             1Ay00011DY...
           </span>

@@ -10,7 +10,7 @@ export default function Home() {
         <div className="flex w-full max-w-[610px] flex-col items-start gap-6">
           <div className="flex flex-col items-start gap-4">
             <h1 className="font-heading text-[2.5rem]/[3rem] font-medium">
-              Think you are good at knowing real estate prices?
+              Think you are good at guessing real estate prices?
             </h1>
             <p className="text-[1rem]/[1.5rem] font-light">
               Are you willing to stake your tokens on it? guess correct property prices and win

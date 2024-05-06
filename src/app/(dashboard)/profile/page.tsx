@@ -32,7 +32,7 @@ const ProfileNFTCard = ({ isShadow, ...nft }: ProfileNFTCardProps) => {
     >
       <div className="relative h-[234px] w-full ">
         <Image
-          src="/images/profile-nft.png"
+          src={nft.image}
           alt="nft"
           width={264}
           height={234}
@@ -124,7 +124,7 @@ export default function Profile() {
               style={{ boxShadow: '0px 0px 24px 0px #ECB278', border: '4px solid #DAB436' }}
             />
             <div className="ml-3 mt-2 flex flex-col">
-              <p className="ml-1 font-bold">Nikku Dev</p>
+              <p className="ml-1 font-bold">Deal Real Dev</p>
               <span className=" mt-3 rounded-xl bg-[#DC7DA63D] px-2.5  py-0.5 text-xs text-white shadow-none ">
                 1Ay00011DY...
               </span>
