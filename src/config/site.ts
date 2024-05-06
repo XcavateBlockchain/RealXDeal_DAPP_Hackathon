@@ -62,59 +62,59 @@ export const siteConfig = {
   },
   nfts: [
     {
-      image: '/images/nft-list.png',
+      image: '/images/Xblue_property_NFT29_apartment.webp',
       nftId: 12,
       owner: 'Alice',
       type: 'Blue',
       time: '2024-05-03 11:43:42'
     },
     {
-      image: '/images/nft-list.png',
+      image: '/images/Xcoral_property_NFT15_apartment.webp',
       nftId: 1,
       owner: 'Bob',
-      type: 'Green',
+      type: 'Coral',
       time: '2024-05-03 11:43:43'
     },
     {
-      image: '/images/nft-list.png',
+      image: '/images/Xblue_property_NFT30_apartment.webp',
       nftId: 2,
       owner: 'Carol',
       type: 'Blue',
       time: '2024-05-03 11:43:44'
     },
     {
-      image: '/images/nft-list.png',
+      image: '/images/Xgreen_property_NFT2_apartment.webp',
       nftId: 3,
       owner: 'Dave',
       type: 'Green',
       time: '2024-05-03 11:43:45'
     },
     {
-      image: '/images/nft-list.png',
+      image: '/images/Xblue_property_NFT30_apartment.webp',
       nftId: 4,
       owner: 'Eve',
       type: 'Blue',
       time: '2024-05-03 11:43:46'
     },
     {
-      image: '/images/nft-list.png',
+      image: '/images/Xgreen_property_NFT3_apartment.webp',
       nftId: 5,
       owner: 'Frank',
       type: 'Green',
       time: '2024-05-03 11:43:47'
     },
     {
-      image: '/images/nft-list.png',
+      image: '/images/Xorange_property_NFT21_apartment.webp',
       nftId: 6,
       owner: 'Grace',
-      type: 'Blue',
+      type: 'Orange',
       time: '2024-05-03 11:43:48'
     },
     {
-      image: '/images/nft-list.png',
+      image: '/images/Xpurple_property_NFT12_apartment.webp',
       nftId: 13,
       owner: 'Harry',
-      type: 'Green',
+      type: 'Purple',
       time: '2024-05-03 11:43:49'
     }
   ]
