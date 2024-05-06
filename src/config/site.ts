@@ -8,11 +8,11 @@ export const siteConfig = {
   mainNav: [
     {
       title: 'Game',
-      href: '/'
+      href: '/home'
     },
     {
       title: 'How to play',
-      href: '/'
+      href: '/#how-to-play'
     },
     {
       title: 'Marketplace',
@@ -20,7 +20,7 @@ export const siteConfig = {
     },
     {
       title: 'About us',
-      href: '/'
+      href: '/#team'
     }
   ],
   sideNav: [

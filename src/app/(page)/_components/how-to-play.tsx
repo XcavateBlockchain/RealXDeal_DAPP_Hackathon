@@ -9,7 +9,10 @@ type PlayCardProps = {
 
 export function HowToPlay() {
   return (
-    <section className="container mx-auto flex w-full max-w-screen-2xl flex-col gap-[100px] px-[100px] pb-[150px] pt-[100px]">
+    <section
+      id="how-to-play"
+      className="container mx-auto flex w-full max-w-screen-2xl flex-col gap-[100px] px-[100px] pb-[150px] pt-[100px]"
+    >
       <div className="flex items-start justify-start font-heading text-[1.3rem]/[1.5rem] font-medium">
         <h3>How to play</h3>
       </div>

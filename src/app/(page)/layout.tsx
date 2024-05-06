@@ -1,5 +1,6 @@
 import SiteFooter from '@/components/layouts/site-footer';
 import { SiteHeader } from '@/components/layouts/site-header';
+import SubstrateContextProvider from '@/context/polkadot-contex';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -13,10 +14,12 @@ export default function PageLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className='w-full bg-[url("/images/bg-blur.svg")] bg-cover bg-center bg-no-repeat'>
-      <SiteHeader />
-      <main className="w-full">{children}</main>
-      <SiteFooter />
-    </div>
+    <SubstrateContextProvider>
+      <div className='w-full bg-[url("/images/bg-blur.svg")] bg-cover bg-center bg-no-repeat'>
+        <SiteHeader />
+        <main className="w-full">{children}</main>
+        <SiteFooter />
+      </div>
+    </SubstrateContextProvider>
   );
 }

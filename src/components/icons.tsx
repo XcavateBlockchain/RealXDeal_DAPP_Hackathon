@@ -9,7 +9,8 @@ import {
   Medal,
   Storefront,
   GearSix,
-  Power
+  Power,
+  CheckCircle
 } from '@phosphor-icons/react/dist/ssr';
 
 export type IconType = keyof typeof Icons;
@@ -28,6 +29,7 @@ export const Icons = {
   Storefront: Storefront,
   GearSix: GearSix,
   Power: Power,
+  CheckCircle: CheckCircle,
   close: (props: IconProps) => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" {...props}>
       <path

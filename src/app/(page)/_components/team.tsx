@@ -8,7 +8,10 @@ type CardProps = {
 
 export function TeamSection() {
   return (
-    <section className="container mx-auto flex w-full max-w-screen-2xl flex-col items-center justify-center gap-[100px] px-[100px] pb-[150px] pt-[100px]">
+    <section
+      id="team"
+      className="container mx-auto flex w-full max-w-screen-2xl flex-col items-center justify-center gap-[100px] px-[100px] pb-[150px] pt-[100px]"
+    >
       <div className="flex flex-col items-center gap-4 text-center">
         <h3 className="font-heading text-[1.3rem]/[1.8rem] font-medium">The team</h3>
         <p className="text-[1rem]/[1.5rem] font-light">Faces Behind the Magic</p>
