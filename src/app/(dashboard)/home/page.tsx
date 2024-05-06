@@ -2,8 +2,6 @@ import { Card, CardWithoutHeading } from '@/components/cards/card';
 import { Shell } from '@/components/shell';
 import { TaskCard } from '../tasks/page';
 import Image from 'next/image';
-import { Icons } from '@/components/icons';
-import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { PlayerStats } from '@/components/cards/player-stats-card';
 import { LeadBoardCard } from '@/components/cards/leadboard-card';
@@ -21,16 +19,14 @@ export default function App() {
 
         <div className="flex w-[60%] items-start gap-[29px]">
           <div className="flex h-full w-[172px] items-end justify-center rounded-lg border border-primary-400 bg-primary-400/[0.24] pb-2.5">
-            <Button variant={'warning'} size={'md'}>
+            <Button href="/gameplay" variant={'warning'} size={'md'}>
               Demo Mode
             </Button>
           </div>
           <div className="flex h-full w-[172px] items-end justify-center rounded-lg border border-primary-200 bg-primary-200/[0.24] pb-2.5">
-            <Link href={`/gameplay`}>
-              <Button variant={'secondary'} size={'md'}>
-                Live Mode
-              </Button>
-            </Link>
+            <Button href="/gameplay" variant={'secondary'} size={'md'}>
+              Live Mode
+            </Button>
           </div>
         </div>
       </section>

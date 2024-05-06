@@ -18,7 +18,7 @@ export default function Play() {
           Live Mode
         </Button>
       </AlertDialogTrigger>
-      <AlertDialogContent className="h-screen w-[100%] bg-primary-300">
+      <AlertDialogContent className="h-screen w-[100%] bg-primary-500">
         <div className="w-full text-center">Hello</div>
       </AlertDialogContent>
     </AlertDialog>

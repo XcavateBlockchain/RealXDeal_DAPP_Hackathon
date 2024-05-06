@@ -8,6 +8,7 @@ import { createContext, useCallback, useContext, useEffect, useState } from 'rea
 
 export type SubstrateContext = {
   address: string;
+  points: number;
   isConnected: boolean;
   selectedAccount: InjectedAccountWithMeta | any;
   handleConnect: any;
@@ -16,6 +17,7 @@ export type SubstrateContext = {
 
 const SubstrateContext = createContext<SubstrateContext>({
   address: '',
+  points: 0,
   isConnected: false,
   selectedAccount: {},
   handleConnect: async () => {}, // Dummy function for handleConnect
@@ -92,6 +94,7 @@ export default function SubstrateContextProvider({ children }: SubstrateProps) {
     <SubstrateContext.Provider
       value={{
         address,
+        points: 0,
         isConnected,
         selectedAccount,
         handleConnect,

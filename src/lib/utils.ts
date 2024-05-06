@@ -11,3 +11,13 @@ export function formatAddress(address: string) {
   const suffix = address.substring(address.length - 4); // Take last 4 characters
   return `${prefix}...${suffix}`; // Combine with ellipsis in the middle
 }
+
+export function formatNumber(number: number | string, options: Intl.NumberFormatOptions = {}) {
+  return new Intl.NumberFormat('en-US', {
+    style: options.style ?? 'decimal',
+    notation: options.notation ?? 'standard',
+    minimumFractionDigits: options.minimumFractionDigits ?? 0,
+    maximumFractionDigits: options.maximumFractionDigits ?? 2,
+    ...options
+  }).format(Number(number));
+}

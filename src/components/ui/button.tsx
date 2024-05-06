@@ -13,7 +13,8 @@ const buttonVariants = cva(
           'bg-primary-200 hover:bg-primary-200/85 text-foreground  disabled:opacity-50 disabled:pointer-events-none transition-colors',
         warning:
           'bg-primary-400 hover:bg-primary-400/85 text-foreground  disabled:opacity-50 disabled:pointer-events-none transition-colors',
-        outline: ''
+        outline: '',
+        text: 'text-primary-300 text-[1.5rem]/[1.5rem] font-light bg-none border-b border-transparent hover:border-primary-300 rounded-none'
       },
       size: {
         default: 'py-[18px] px-6 text-[1rem]/[1.2rem]',
