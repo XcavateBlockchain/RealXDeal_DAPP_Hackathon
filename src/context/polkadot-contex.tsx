@@ -41,9 +41,11 @@ export default function SubstrateContextProvider({ children }: SubstrateProps) {
   const handleConnect = async (walletName: 'talisman' | 'subwallet-js') => {
     try {
       const extensions = await web3Enable('RealXChange');
+      console.log(extensions);
       const extension = extensions.find(
         ext => ext.name.toLowerCase() === walletName.toLowerCase()
       );
+      console.log(extension);
       if (!extension) {
         alert(`Please install the ${walletName} extension.`);
         return;

@@ -105,7 +105,7 @@ export function SheetDemo() {
                 </div>
               </div>
               {/* timer */}
-              <div className="shadow-time flex size-[147px] items-center justify-center rounded-full border-[2.94px] border-primary-200 bg-primary px-8 py-[40px]">
+              <div className="flex size-[147px] items-center justify-center rounded-full border-[2.94px] border-primary-200 bg-primary px-8 py-[40px] shadow-time">
                 <span className="font-heading text-[2.84569rem] font-bold">
                   {secondsLeft > 0 && `${secondsLeft}`}
                 </span>
