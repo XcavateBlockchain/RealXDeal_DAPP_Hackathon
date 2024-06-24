@@ -41,11 +41,9 @@ export default function SubstrateContextProvider({ children }: SubstrateProps) {
   const handleConnect = async (walletName: 'talisman' | 'subwallet-js') => {
     try {
       const extensions = await web3Enable('RealXChange');
-      console.log(extensions);
       const extension = extensions.find(
         ext => ext.name.toLowerCase() === walletName.toLowerCase()
       );
-      console.log(extension);
       if (!extension) {
         alert(`Please install the ${walletName} extension.`);
         return;
@@ -65,6 +63,7 @@ export default function SubstrateContextProvider({ children }: SubstrateProps) {
       setAddress(accounts[0].address);
       localStorage.setItem('selectedWalletAddress', accounts[0].address);
       console.log('Connected with account:', accounts[0]);
+      console.log('Connected with account:', accounts);
 
       alert(`Connected successfully with ${walletName}`);
     } catch (error) {

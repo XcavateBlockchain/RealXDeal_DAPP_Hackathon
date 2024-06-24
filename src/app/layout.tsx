@@ -3,10 +3,12 @@ import { Unbounded } from 'next/font/google';
 import { fontHeading } from '@/lib/fonts';
 import './globals.css';
 import { cn } from '@/lib/utils';
+import { Toaster } from '@/components/ui/toaster';
 
 const unbounded = Unbounded({
   style: 'normal',
   subsets: ['latin'],
+  weight: ['200', '300', '400', '500', '600', '700', '800', '900'],
   variable: '--font-unbounded'
 });
 
@@ -30,6 +32,7 @@ export default function RootLayout({
         )}
       >
         {children}
+        <Toaster />
       </body>
     </html>
   );

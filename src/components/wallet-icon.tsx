@@ -210,5 +210,10 @@ export const WalletIcon = {
         />
       </defs>
     </svg>
+  ),
+  account: (props: IconProps) => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" {...props}>
+      <circle cx="24" cy="24" r="23.5" stroke="#4E4E4E" />
+    </svg>
   )
 };
