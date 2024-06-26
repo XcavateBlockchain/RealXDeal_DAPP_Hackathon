@@ -10,7 +10,7 @@ import { LeadBoardCard } from '@/components/cards/leadboard-card';
 // import { getApi } from '@/lib/polkadot';
 // import { web3Enable, web3FromAddress } from '@polkadot/extension-dapp';
 import LiveGamePlay from './_components/live-game-container';
-import { getAvailableNFTs, getUserData } from '@/lib/queries';
+import { getUserData } from '@/lib/queries';
 import ProfileHeader from './_components/profile-header';
 import { useSubstrateContext } from '@/context/polkadot-contex';
 import { useEffect, useState } from 'react';
