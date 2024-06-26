@@ -98,9 +98,25 @@ export async function isRoundActive(){
   return output;
 }
 
+
 export async function getRoundChampion(id: number){
   const api = await getApi();
   const result = await api.query.gameModule.roundChampion(id);
   const output = result.toHuman();
   return output;
 }
+
+export async function getGameProperties(){
+  const api = await getApi();
+  const result = await api.query.gameModule.gameProperties();
+  const output = result.toHuman();
+  return output;
+}
+
+export async function getCollectionColor(id: number){
+  const api = await getApi();
+  const result = await api.query.gameModule.collectionColor(id);
+  const output = result.toHuman();
+  return output;
+}
+
