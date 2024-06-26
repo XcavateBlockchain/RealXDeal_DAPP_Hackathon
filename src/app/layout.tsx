@@ -4,12 +4,17 @@ import { fontHeading } from '@/lib/fonts';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
+import dynamic from 'next/dynamic';
 
 const unbounded = Unbounded({
   style: 'normal',
   subsets: ['latin'],
   weight: ['200', '300', '400', '500', '600', '700', '800', '900'],
   variable: '--font-unbounded'
+});
+
+const SubstrateContextProvider = dynamic(() => import('@/context/polkadot-contex'), {
+  ssr: false
 });
 
 export const metadata: Metadata = {
@@ -31,7 +36,7 @@ export default function RootLayout({
           fontHeading.variable
         )}
       >
-        {children}
+        <SubstrateContextProvider>{children}</SubstrateContextProvider>
         <Toaster />
       </body>
     </html>

@@ -1,59 +1,54 @@
-// 'use client';
+'use client';
 import { Card, CardWithoutHeading } from '@/components/cards/card';
 import { Shell } from '@/components/shell';
 import { TaskCard } from '../tasks/page';
 import Image from 'next/image';
-import { Button } from '@/components/ui/button';
+// import { Button } from '@/components/ui/button';
 import { PlayerStats } from '@/components/cards/player-stats-card';
 import { LeadBoardCard } from '@/components/cards/leadboard-card';
-import Link from 'next/link';
-import { getApi } from '@/lib/polkadot';
-import { web3Enable, web3FromAddress } from '@polkadot/extension-dapp';
+// import Link from 'next/link';
+// import { getApi } from '@/lib/polkadot';
+// import { web3Enable, web3FromAddress } from '@polkadot/extension-dapp';
 import LiveGamePlay from './_components/live-game-container';
-import { getAvailableNFTs } from '@/lib/queries';
+import { getAvailableNFTs, getUserData } from '@/lib/queries';
+import ProfileHeader from './_components/profile-header';
+import { useSubstrateContext } from '@/context/polkadot-contex';
+import { useEffect, useState } from 'react';
 
-type Player = {
-  Player: 1;
-};
+// type Player = {
+//   Player: 1;
+// };
 
-type Practice = {
-  Practice: 0;
-};
+// type Practice = {
+//   Practice: 0;
+// };
 
-type GameType = Player | Practice;
+// type GameType = Player | Practice;
 
-export default async function App() {
-  // getAvailableNFTs(1);
+export default function App() {
+  const { address } = useSubstrateContext();
+  const [user, setUser] = useState<any>();
 
-  // console.log(process.env.NEXT_PUBLIC_RPC);
+  async function fetchUserDetails() {
+    const userData = await getUserData(address);
+    console.log(userData);
+    if (userData !== null) {
+      setUser(userData);
+    }
+  }
+
+  useEffect(() => {
+    fetchUserDetails();
+  }, []); // Add address as a dependency
 
   return (
     <Shell>
-      <div className="flex w-full items-center justify-between">
-        <div className="space-x-[17px]">
-          {/* <Image
-            src={'/images/profile/profile.png'}
-            alt="profile"
-            width={53}
-            height={53}
-            priority
-          /> */}
-          <div>
-            <span className="rounded-3xl bg-[#DC7DA6]/[0.25] px-2 py-[2px] text-[0.875rem]/[0.025rem] font-extralight">
-              1Ay00011DY...
-            </span>
-          </div>
-        </div>
-        <div className="space-x-[15px]">
-          <span>Points</span>
-          <span className="text-primary-400">1500</span>
-        </div>
-      </div>
+      <ProfileHeader points={user?.points} />
       <section className=" flex w-full gap-[54px]">
         <CardWithoutHeading className="w-[40%]">
           <PlayerStats title="Guesses" value={10} />
-          <PlayerStats title="Correct " value={6} />
-          <PlayerStats title="Failed " value={0} />
+          <PlayerStats title="Correct " value={user?.wins} />
+          <PlayerStats title="Failed " value={user?.losses} />
         </CardWithoutHeading>
 
         <div className="flex w-[60%] items-start gap-[29px]">
@@ -85,14 +80,14 @@ export default async function App() {
         </Card>
         <Card className="w-[60%]" title="NFTs Collected">
           <div className="grid h-full w-full grid-cols-4 gap-6">
-            <NFTCard />
-            <NFTCard />
-            <NFTCard />
-            <NFTCard />
-            <NFTCard />
-            <NFTCard />
-            <NFTCard />
-            <NFTCard />
+            <NFTCard image="/images/nfts/x_orange.png" noOfNfts={user?.nfts?.xorange} />
+            <NFTCard image="/images/nfts/x_pink.png" noOfNfts={user?.nfts?.xpink} />
+            <NFTCard image="/images/nfts/x_blue.png" noOfNfts={user?.nfts?.xblue} />
+            <NFTCard image="/images/nfts/x_cyan.png" noOfNfts={user?.nfts?.xorange} />
+            <NFTCard image="/images/nfts/x_coral.png" noOfNfts={user?.nfts?.xcoral} />
+            <NFTCard image="/images/nfts/x_purple.png" noOfNfts={user?.nfts?.xpurple} />
+            <NFTCard image="/images/nfts/x_leaf_green.png" noOfNfts={user?.nfts?.xleafgreen} />
+            <NFTCard image="/images/nfts/x_green.png" noOfNfts={user?.nfts?.xgreen} />
           </div>
         </Card>
       </section>
@@ -119,18 +114,19 @@ export default async function App() {
   );
 }
 
-const NFTCard = () => {
+const NFTCard = ({ image, noOfNfts }: { image: string; noOfNfts: number }) => {
   return (
     <div className="relative w-full border border-primary-200 p-[6px]">
       <Image
-        src={'/images/Xpurple_property_NFT9_apartment.webp'}
+        src={image}
         alt="nft"
         width={132}
         height={152}
         priority
+        className="h-[152px] w-full"
       />{' '}
       <div className=" absolute bottom-0 left-[53px] flex items-center justify-center rounded-t bg-primary-200 px-2">
-        <span className="text-[1rem]/[1.2rem] font-light">10</span>
+        <span className="text-[1rem]/[1.2rem] font-light">{noOfNfts}</span>
       </div>
     </div>
   );
