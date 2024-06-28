@@ -3,7 +3,7 @@ import { Unbounded } from 'next/font/google';
 import { fontHeading } from '@/lib/fonts';
 import './globals.css';
 import { cn } from '@/lib/utils';
-import { Toaster } from '@/components/ui/toaster';
+import { Toaster } from '@/components/ui/sonner';
 import dynamic from 'next/dynamic';
 
 const unbounded = Unbounded({

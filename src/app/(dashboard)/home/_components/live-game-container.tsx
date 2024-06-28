@@ -1,12 +1,13 @@
 'use client';
 
-import { ReactNode, useState } from 'react';
+import { Dispatch, ReactNode, SetStateAction, useState, useTransition } from 'react';
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import GameMode from './game-mode';
 import { GuessFail, GuessPass } from './success-failure';
 import { getApi } from '@/lib/polkadot';
 import { web3Enable, web3FromAddress } from '@polkadot/extension-dapp';
+import { Icons } from '@/components/icons';
 interface IGamePlaySection {
   [key: string]: ReactNode;
 }
@@ -23,39 +24,17 @@ type GameType = Player | Practice;
 
 export default function LiveGamePlay({ type }: { type: GameType }) {
   const [openGameSheet, setOpenGameSheet] = useState<boolean>(false);
-  const [display, setDisplay] = useState<'play' | 'success' | 'fail'>('play');
+  const [display, setDisplay] = useState<'start' | 'play' | 'success' | 'fail'>('start');
 
   function closeGameSheet() {
     setOpenGameSheet(false);
   }
 
   const game: IGamePlaySection = {
+    start: <StartGame setDisplay={setDisplay} close={closeGameSheet} />,
     play: <GameMode setDisplay={setDisplay} close={closeGameSheet} />,
     success: <GuessPass close={closeGameSheet} />,
     fail: <GuessFail close={closeGameSheet} />
-  };
-
-  const address = '5CSFhuBPkG1SDyHseSHh23Kg89oYVysjRmXH5ea3F3fzEyx5';
-  const playGame = async (gameType: GameType) => {
-    try {
-      const api = await getApi();
-      const extensions = await web3Enable('RealXDEal');
-      const injected = await web3FromAddress(address);
-      const extrinsic = api.tx.gameModule.playGame(gameType);
-      const signer = injected.signer;
-
-      const unsub = await extrinsic.signAndSend(address, { signer }, result => {
-        if (result.status.isInBlock) {
-          console.log(`Completed at block hash #${result.status.asInBlock.toString()}`);
-        } else if (result.status.isBroadcast) {
-          console.log('Broadcasting the guess...');
-        }
-      });
-
-      console.log('Transaction sent:', unsub);
-    } catch (error) {
-      console.error('Failed to submit guess:', error);
-    }
   };
 
   return (
@@ -79,5 +58,67 @@ export default function LiveGamePlay({ type }: { type: GameType }) {
         </div>
       </SheetContent>
     </Sheet>
+  );
+}
+
+interface GameProps {
+  setDisplay: Dispatch<SetStateAction<'start' | 'play' | 'success' | 'fail'>>;
+  close: () => void;
+}
+
+function StartGame({ close, setDisplay }: GameProps) {
+  const [isPending, startTransition] = useTransition();
+
+  const address = '5CSFhuBPkG1SDyHseSHh23Kg89oYVysjRmXH5ea3F3fzEyx5';
+  const playGame = async () => {
+    try {
+      const api = await getApi();
+      const extensions = await web3Enable('RealXDEal');
+      const injected = await web3FromAddress(address);
+      const extrinsic = api.tx.gameModule.playGame(0);
+      const signer = injected.signer;
+
+      const unsub = await extrinsic.signAndSend(address, { signer }, result => {
+        if (result.status.isInBlock) {
+          console.log(`Completed at block hash #${result.status.asInBlock.toString()}`);
+        } else if (result.status.isBroadcast) {
+          console.log('Broadcasting the guess...');
+        }
+      });
+
+      console.log('Transaction sent:', unsub);
+    } catch (error) {
+      console.error('Failed to submit guess:', error);
+    }
+  };
+
+  function onPlay() {
+    startTransition(() => {
+      setDisplay('play');
+    });
+  }
+
+  return (
+    <div className="space-y-[44px]">
+      <div className="flex items-center justify-between">
+        <Button variant={'text'} onClick={close} className="p-0" disabled={isPending}>
+          <Icons.CaretLeft className="size-6" />
+          Return
+        </Button>
+        <div className="space-x-[15px]">
+          <span>points</span>
+          <span className="text-primary-400">1500</span>
+        </div>
+      </div>
+      <div className="flex items-center justify-center p-[200px]">
+        <Button
+          className="size-[250px] rounded-full p-10 font-heading text-[2.84569rem] font-bold shadow-game"
+          onClick={onPlay}
+          disabled={isPending}
+        >
+          Start <br /> Game
+        </Button>
+      </div>
+    </div>
   );
 }

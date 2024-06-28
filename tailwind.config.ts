@@ -64,7 +64,8 @@ const config = {
         header: '0px 0px 30px 0px rgba(0, 0, 0, 0.32)',
         card: '0px 0px 30px 0px rgba(0, 0, 0, 0.32)',
         profile: '0px 0px 24px 0px #ECB278',
-        time: '-4.41px -8.82px 13.671px 0px rgba(87, 160, 197, 0.25) inset, 7.35px 14.7px 11.466px 0px rgba(55, 114, 144, 0.25) inset'
+        time: '0px 0px 24px 0px rgba(87, 160, 197, 1)',
+        game: '0px 0px 24px 0px #DC7DA6'
       },
       keyframes: {
         'accordion-down': {

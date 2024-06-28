@@ -1,4 +1,4 @@
-import { NavItem } from '@/types';
+import { GameData, NavItem } from '@/types';
 
 export const siteConfig = {
   name: 'RealXDeal',
@@ -117,7 +117,23 @@ export const siteConfig = {
       type: 'Purple',
       time: '2024-05-03 11:43:49'
     }
-  ]
+  ],
+  gameData: {
+    cover_image:
+      'https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/32k/31217/144806384/31217_15631_PYMM_IMG_00_0000_max_476x317.jpeg',
+    type: 'Apartment',
+    bedrooms: 2,
+    bathrooms: 2,
+    size: '1,001 sq. ft.',
+    address: 'Drays Yard, Norwich',
+    post_code: 'jfjf',
+    location: {
+      latitude: 52.625284,
+      longitude: 1.30124
+    },
+    summary:
+      'Second floor apartment located a short stroll from the City centre, Good sized lounge, Kitchen/Diner, Two bedrooms, E-Suite & Bathroom, Double glazing & electric heating, Designated Parking Space.'
+  } as GameData
 };
 
 export type SiteConfig = typeof siteConfig;
