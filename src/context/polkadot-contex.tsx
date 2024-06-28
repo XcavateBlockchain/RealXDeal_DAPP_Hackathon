@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { web3Accounts, web3Enable, web3FromSource } from '@polkadot/extension-dapp';
 import { InjectedExtension, InjectedAccountWithMeta } from '@polkadot/extension-inject/types';
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 export type SubstrateContext = {
   address: string;
@@ -38,40 +39,82 @@ export default function SubstrateContextProvider({ children }: SubstrateProps) {
   const [selectedAccount, setSelectedAccount] = useState<InjectedAccountWithMeta>();
   const [address, setAddress] = useState<string>('');
 
-  const handleConnect = async (walletName: 'talisman' | 'subwallet-js') => {
-    try {
-      const extensions = await web3Enable('RealXChange');
-      console.log(extensions);
-      const extension = extensions.find(
-        ext => ext.name.toLowerCase() === walletName.toLowerCase()
-      );
-      console.log(extension);
-      if (!extension) {
-        alert(`Please install the ${walletName} extension.`);
-        return;
-      }
+  // const handleConnect = async (walletName: 'talisman' | 'subwallet-js') => {
+  //   try {
+  //     const extensions = await web3Enable('RealXDeal');
+  //     // console.log(extensions);
+  //     const extension = extensions.find(
+  //       ext => ext.name.toLowerCase() === walletName.toLowerCase()
+  //     );
+  //     console.log(extension);
+  //     if (!extension) {
+  //       alert(`Please install the ${walletName} extension.`);
+  //       return;
+  //     }
 
-      const injected = await web3FromSource(extension.name);
-      if (!injected) {
-        throw new Error(`Failed to connect with ${walletName}`);
-      }
+  //     const injected = await web3FromSource(extension.name);
+  //     if (!injected) {
+  //       throw new Error(`Failed to connect with ${walletName}`);
+  //     }
 
-      const accounts = await web3Accounts();
-      if (accounts.length === 0) {
-        throw new Error('No accounts found in the wallet.');
-      }
+  //     const accounts = await web3Accounts();
+  //     if (accounts.length === 0) {
+  //       throw new Error('No accounts found in the wallet.');
+  //     }
 
-      setSelectedAccount(accounts[0]);
-      setAddress(accounts[0].address);
-      localStorage.setItem('selectedWalletAddress', accounts[0].address);
-      console.log('Connected with account:', accounts[0]);
+  //     setSelectedAccount(accounts[0]);
+  //     setAddress(accounts[0].address);
+  //     localStorage.setItem('selectedWalletAddress', accounts[0].address);
+  //     console.log('Connected with account:', accounts[0]);
 
-      alert(`Connected successfully with ${walletName}`);
-    } catch (error) {
-      console.error('Error connecting to wallet:', error);
-      alert(`Failed to connect the wallet: ${error}`);
+  //     alert(`Connected successfully with ${walletName}`);
+  //   } catch (error) {
+  //     console.error('Error connecting to wallet:', error);
+  //     alert(`Failed to connect the wallet: ${error}`);
+  //   }
+  // };
+
+  // const disconnectWallet = () => {
+  //   setAddress('');
+  //   localStorage.removeItem('selectedWalletAddress');
+  //   setIsConnected(false);
+  //   router.refresh();
+  // };
+
+  // const onReconnect = async () => {
+  //   const localStorageAddress = localStorage.getItem('selectedWalletAddress');
+  //   if (localStorageAddress) {
+  //     const accounts = await web3Accounts();
+  //     if (accounts.length === 0) {
+  //       throw new Error('No accounts found in the wallet.');
+  //     }
+
+  //     setSelectedAccount(accounts[0]);
+  //     setAddress(accounts[0].address);
+  //     // setAddress(localStorageAddress);
+  //     setIsConnected(true);
+  //   }
+  // };
+
+  const handleConnect = useCallback(async (walletName: 'talisman' | 'subwallet-js') => {
+    const { web3Enable, web3Accounts } = await import('@polkadot/extension-dapp');
+    const extensions = await web3Enable('RealXDeal');
+    if (extensions.length === 0) {
+      toast.error('No Polkadot wallet extensions found!');
+      return;
     }
-  };
+
+    // setIsLoading(true);
+
+    const accounts = await web3Accounts();
+    const account = accounts[0].address;
+
+    setSelectedAccount(accounts[0]);
+    setAddress(account);
+    localStorage.setItem('selectedWalletAddress', account);
+    // setIsLoading(false);
+    setIsConnected(true);
+  }, []);
 
   const disconnectWallet = () => {
     setAddress('');

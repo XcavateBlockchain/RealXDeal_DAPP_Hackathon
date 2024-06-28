@@ -18,7 +18,7 @@ import {
 import { Dispatch, SetStateAction, useEffect, useTransition } from 'react';
 
 interface GameProps {
-  setDisplay: Dispatch<SetStateAction<'play' | 'success' | 'fail'>>;
+  setDisplay: Dispatch<SetStateAction<'start' | 'play' | 'success' | 'fail'>>;
   close: () => void;
 }
 
