@@ -48,3 +48,75 @@ export async function getListings() {
   const output = result.toHuman();
   return output;
 }
+
+export async function getGamesExpiring(gameId: number) {
+  const api = await getApi();
+  const result = await api.query.gameModule.gamesExpiring(gameId);
+  const output = result.toHuman();
+  return output;
+}
+
+export async function getNextColorId(id: number) {
+  const api = await getApi();
+  const result = await api.query.gameModule.nextColorId(id);
+  const output = result.toHuman();
+  return output;
+}
+
+export async function getNextListingId() {
+  const api = await getApi();
+  const result = await api.query.gameModule.nextListingId();
+  const output = result.toHuman();
+  return output;
+}
+export async function getNextOfferId(){
+  const api = await getApi();
+  const result = await api.query.gameModule.nextOfferId();
+  const output = result.toHuman();
+  return output;
+}
+
+export async function getOffers(id: number) {
+  const api = await getApi();
+  const result = await api.query.gameModule.offers(id);
+  const output = result.toHuman();
+  return
+}
+
+
+export async function getPalletVersion() {
+  const api = await getApi();
+  const result = await api.query.gameModule.palletVersion();
+  const output = result.toHuman();
+  return output;
+}
+
+export async function isRoundActive(){
+  const api = await getApi();
+  const result = await api.query.gameModule.roundActive();
+  const output = result.toHuman();
+  return output;
+}
+
+
+export async function getRoundChampion(id: number){
+  const api = await getApi();
+  const result = await api.query.gameModule.roundChampion(id);
+  const output = result.toHuman();
+  return output;
+}
+
+export async function getGameProperties(){
+  const api = await getApi();
+  const result = await api.query.gameModule.gameProperties();
+  const output = result.toHuman();
+  return output;
+}
+
+export async function getCollectionColor(id: number){
+  const api = await getApi();
+  const result = await api.query.gameModule.collectionColor(id);
+  const output = result.toHuman();
+  return output;
+}
+
