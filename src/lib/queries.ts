@@ -69,7 +69,7 @@ export async function getNextListingId() {
   const output = result.toHuman();
   return output;
 }
-export async function getNextOfferId(){
+export async function getNextOfferId() {
   const api = await getApi();
   const result = await api.query.gameModule.nextOfferId();
   const output = result.toHuman();
@@ -80,9 +80,8 @@ export async function getOffers(id: number) {
   const api = await getApi();
   const result = await api.query.gameModule.offers(id);
   const output = result.toHuman();
-  return
+  return;
 }
-
 
 export async function getPalletVersion() {
   const api = await getApi();
@@ -91,32 +90,30 @@ export async function getPalletVersion() {
   return output;
 }
 
-export async function isRoundActive(){
+export async function isRoundActive() {
   const api = await getApi();
   const result = await api.query.gameModule.roundActive();
   const output = result.toHuman();
   return output;
 }
 
-
-export async function getRoundChampion(id: number){
+export async function getRoundChampion(id: number) {
   const api = await getApi();
   const result = await api.query.gameModule.roundChampion(id);
   const output = result.toHuman();
   return output;
 }
 
-export async function getGameProperties(){
+export async function getGameProperties() {
   const api = await getApi();
   const result = await api.query.gameModule.gameProperties();
   const output = result.toHuman();
   return output;
 }
 
-export async function getCollectionColor(id: number){
+export async function getCollectionColor(id: number) {
   const api = await getApi();
   const result = await api.query.gameModule.collectionColor(id);
   const output = result.toHuman();
   return output;
 }
-
