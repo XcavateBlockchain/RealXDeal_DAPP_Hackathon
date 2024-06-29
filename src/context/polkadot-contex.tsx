@@ -2,10 +2,16 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { web3Accounts, web3Enable, web3FromSource } from '@polkadot/extension-dapp';
+// import { web3Accounts, web3Enable, web3FromSource } from '@polkadot/extension-dapp';
 import { InjectedExtension, InjectedAccountWithMeta } from '@polkadot/extension-inject/types';
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { toast } from 'sonner';
+
+// declare global {
+//   interface Window {
+//     talisman?: any;
+//   }
+// }
 
 export type SubstrateContext = {
   address: string;
@@ -31,6 +37,10 @@ export function useSubstrateContext() {
 
 export interface SubstrateProps {
   children?: React.ReactNode;
+}
+
+if (typeof window !== 'undefined') {
+  console.log('Window not found');
 }
 
 export default function SubstrateContextProvider({ children }: SubstrateProps) {
@@ -124,11 +134,19 @@ export default function SubstrateContextProvider({ children }: SubstrateProps) {
   };
 
   const onReconnect = async () => {
-    const localStorageAddress = localStorage.getItem('selectedWalletAddress');
-    if (localStorageAddress) {
-      setAddress(localStorageAddress);
-      setIsConnected(true);
+    if (typeof window !== 'undefined') {
+      // Code that accesses window or localStorage
+      const localStorageAddress = localStorage.getItem('selectedWalletAddress');
+      if (localStorageAddress) {
+        setAddress(localStorageAddress);
+        setIsConnected(true);
+      }
     }
+    // const localStorageAddress = localStorage.getItem('selectedWalletAddress');
+    // if (localStorageAddress) {
+    //   setAddress(localStorageAddress);
+    //   setIsConnected(true);
+    // }
   };
 
   useEffect(() => {

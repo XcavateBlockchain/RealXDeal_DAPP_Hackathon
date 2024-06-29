@@ -1,13 +1,14 @@
 'use client';
 
 import { Dispatch, ReactNode, SetStateAction, useState, useTransition } from 'react';
-import { Sheet, SheetClose, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import GameMode from './game-mode';
 import { GuessFail, GuessPass } from './success-failure';
-import { getApi } from '@/lib/polkadot';
-import { web3Enable, web3FromAddress } from '@polkadot/extension-dapp';
+
 import { Icons } from '@/components/icons';
+import { playGame } from '@/lib/extrinsic';
+import { useSubstrateContext } from '@/context/polkadot-contex';
 interface IGamePlaySection {
   [key: string]: ReactNode;
 }
@@ -20,7 +21,9 @@ type Practice = {
   Practice: 0;
 };
 
-type GameType = Player | Practice;
+// type GameType = Player | Practice;
+
+type GameType = 0 | 1;
 
 export default function LiveGamePlay({ type }: { type: GameType }) {
   const [openGameSheet, setOpenGameSheet] = useState<boolean>(false);
@@ -31,7 +34,7 @@ export default function LiveGamePlay({ type }: { type: GameType }) {
   }
 
   const game: IGamePlaySection = {
-    start: <StartGame setDisplay={setDisplay} close={closeGameSheet} />,
+    start: <StartGame type={type} setDisplay={setDisplay} close={closeGameSheet} />,
     play: <GameMode setDisplay={setDisplay} close={closeGameSheet} />,
     success: <GuessPass close={closeGameSheet} />,
     fail: <GuessFail close={closeGameSheet} />
@@ -40,8 +43,8 @@ export default function LiveGamePlay({ type }: { type: GameType }) {
   return (
     <Sheet open={openGameSheet} onOpenChange={setOpenGameSheet}>
       <SheetTrigger asChild>
-        <Button variant={'Player' in type ? 'secondary' : 'warning'} size={'md'}>
-          {'Player' in type ? 'Live Mode' : '  Demo Mode'}
+        <Button variant={type === 1 ? 'secondary' : 'warning'} size={'md'}>
+          {type === 1 ? 'Live Mode' : '  Demo Mode'}
         </Button>
       </SheetTrigger>
       <SheetContent
@@ -62,38 +65,18 @@ export default function LiveGamePlay({ type }: { type: GameType }) {
 }
 
 interface GameProps {
+  type: GameType;
   setDisplay: Dispatch<SetStateAction<'start' | 'play' | 'success' | 'fail'>>;
   close: () => void;
 }
 
-function StartGame({ close, setDisplay }: GameProps) {
+function StartGame({ type, close, setDisplay }: GameProps) {
+  const { address } = useSubstrateContext();
   const [isPending, startTransition] = useTransition();
 
-  const address = '5CSFhuBPkG1SDyHseSHh23Kg89oYVysjRmXH5ea3F3fzEyx5';
-  const playGame = async () => {
-    try {
-      const api = await getApi();
-      const extensions = await web3Enable('RealXDEal');
-      const injected = await web3FromAddress(address);
-      const extrinsic = api.tx.gameModule.playGame(0);
-      const signer = injected.signer;
-
-      const unsub = await extrinsic.signAndSend(address, { signer }, result => {
-        if (result.status.isInBlock) {
-          console.log(`Completed at block hash #${result.status.asInBlock.toString()}`);
-        } else if (result.status.isBroadcast) {
-          console.log('Broadcasting the guess...');
-        }
-      });
-
-      console.log('Transaction sent:', unsub);
-    } catch (error) {
-      console.error('Failed to submit guess:', error);
-    }
-  };
-
   function onPlay() {
-    startTransition(() => {
+    startTransition(async () => {
+      await playGame(type, address);
       setDisplay('play');
     });
   }
@@ -122,3 +105,26 @@ function StartGame({ close, setDisplay }: GameProps) {
     </div>
   );
 }
+
+// const address = '5CSFhuBPkG1SDyHseSHh23Kg89oYVysjRmXH5ea3F3fzEyx5';
+// const playGame = async () => {
+//   try {
+//     const api = await getApi();
+//     const extensions = await web3Enable('RealXDEal');
+//     const injected = await web3FromAddress(address);
+//     const extrinsic = api.tx.gameModule.playGame(0);
+//     const signer = injected.signer;
+
+//     const unsub = await extrinsic.signAndSend(address, { signer }, result => {
+//       if (result.status.isInBlock) {
+//         console.log(`Completed at block hash #${result.status.asInBlock.toString()}`);
+//       } else if (result.status.isBroadcast) {
+//         console.log('Broadcasting the guess...');
+//       }
+//     });
+
+//     console.log('Transaction sent:', unsub);
+//   } catch (error) {
+//     console.error('Failed to submit guess:', error);
+//   }
+// };

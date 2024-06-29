@@ -45,22 +45,22 @@ export default function App() {
     <Shell>
       <ProfileHeader points={user?.points} />
       <section className=" flex w-full gap-[54px]">
-        <CardWithoutHeading className="w-[40%]">
+        <CardWithoutHeading className="w-2/5">
           <PlayerStats title="Guesses" value={10} />
           <PlayerStats title="Correct " value={user?.wins} />
           <PlayerStats title="Failed " value={user?.losses} />
         </CardWithoutHeading>
 
-        <div className="flex w-[60%] items-start gap-[29px]">
+        <div className="flex w-3/5 items-start gap-[29px]">
           <div className="flex h-full w-[172px] items-end justify-center rounded-lg border border-primary-400 bg-primary-400/[0.24] pb-2.5">
-            <LiveGamePlay type={{ Practice: 0 }} />
+            <LiveGamePlay type={0} />
 
             {/* <Button variant={'warning'} size={'md'} onClick={() => playGame({ Practice: 0 })}>
               Demo Mode
             </Button> */}
           </div>
           <div className="flex h-full w-[172px] items-end justify-center rounded-lg border border-primary-200 bg-primary-200/[0.24] pb-2.5">
-            <LiveGamePlay type={{ Player: 1 }} />
+            <LiveGamePlay type={1} />
             {/* <Button variant={'secondary'} size={'md'} onClick={() => playGame({ Player: 1 })}>
               Live Mode
             </Button> */}
@@ -68,7 +68,7 @@ export default function App() {
         </div>
       </section>
       <section className="flex items-start gap-[54px]">
-        <Card className="w-[40%]" title="Top 5 players">
+        <Card className="w-2/5" title="Top 5 players">
           <div className="flex w-full flex-col gap-6">
             <LeadBoardCard points={2000} winner />
             <LeadBoardCard points={2000} winner />
@@ -78,8 +78,8 @@ export default function App() {
             <LeadBoardCard points={2000} />
           </div>
         </Card>
-        <Card className="w-[60%]" title="NFTs Collected">
-          <div className="grid h-full w-full grid-cols-4 gap-6">
+        <Card className="w-3/5" title="NFTs Collected">
+          <div className="grid size-full grid-cols-4 gap-6">
             <NFTCard image="/images/nfts/x_orange.png" noOfNfts={user?.nfts?.xorange} />
             <NFTCard image="/images/nfts/x_pink.png" noOfNfts={user?.nfts?.xpink} />
             <NFTCard image="/images/nfts/x_blue.png" noOfNfts={user?.nfts?.xblue} />

@@ -8,21 +8,21 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          'bg-primary-300 hover:bg-primary-300/85 text-foreground  disabled:opacity-50 disabled:pointer-events-none transition-colors',
+          'bg-primary-300 text-foreground transition-colors  hover:bg-primary-300/85 disabled:pointer-events-none disabled:bg-[#CCCCCC] disabled:opacity-50',
         secondary:
-          'bg-primary-200 hover:bg-primary-200/85 text-foreground  disabled:opacity-50 disabled:pointer-events-none transition-colors',
+          'bg-primary-200 text-foreground transition-colors  hover:bg-primary-200/85 disabled:pointer-events-none disabled:opacity-50',
         warning:
-          'bg-primary-400 hover:bg-primary-400/85 text-foreground  disabled:opacity-50 disabled:pointer-events-none transition-colors',
+          'bg-primary-400 text-foreground transition-colors  hover:bg-primary-400/85 disabled:pointer-events-none disabled:opacity-50',
         outline:
-          'border-[#CCCCCC80] text-[#CCCCCC80] border font-light font-sans hover:border-primary-300 hover:text-primary-300',
-        text: 'text-primary-300 text-[1.5rem]/[1.5rem] font-light bg-none hover:text-primary-300/65 border-transparent rounded-none'
+          'border border-[#CCCCCC80] font-sans font-light text-[#CCCCCC80] hover:border-primary-300 hover:text-primary-300',
+        text: 'rounded-none border-transparent bg-none text-[1.5rem]/[1.5rem] font-light text-primary-300 hover:text-primary-300/65'
       },
       size: {
-        default: 'py-[18px] px-6 text-[1rem]/[1.2rem]',
-        lg: 'py-4 px-[45px] text-[1rem]',
-        md: 'py-2 px-6 text-[0.75rem]/[1.1875rem]',
+        default: 'px-6 py-[18px] text-[1rem]/[1.2rem]',
+        lg: 'px-[45px] py-4 text-[1rem]',
+        md: 'px-6 py-2 text-[0.75rem]/[1.1875rem]',
         sm: 'p-2 text-[0.875rem]/[1.5rem] font-light',
-        icon: 'h-10 w-10'
+        icon: 'size-10'
       },
       fullWidth: {
         true: 'w-full'

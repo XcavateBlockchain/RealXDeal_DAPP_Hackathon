@@ -1,5 +1,6 @@
 import { web3Enable, web3FromAddress } from '@polkadot/extension-dapp';
 import { getApi } from './polkadot';
+import { toast } from 'sonner';
 
 export async function playGame(gameType: 0 | 1 | 2, address: string) {
   try {
@@ -11,8 +12,10 @@ export async function playGame(gameType: 0 | 1 | 2, address: string) {
 
     const unsub = await extrinsic.signAndSend(address, { signer }, result => {
       if (result.status.isInBlock) {
+        toast.success(result.status.asInBlock.toString());
         console.log(`Completed at block hash #${result.status.asInBlock.toString()}`);
       } else if (result.status.isBroadcast) {
+        toast.error('Broadcasting the guess...');
         console.log('Broadcasting the guess...');
       }
     });

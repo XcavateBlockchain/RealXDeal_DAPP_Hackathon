@@ -1,3 +1,5 @@
+'use client';
+
 import { Icons } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import Form, { useZodForm } from '@/components/ui/form';
@@ -33,6 +35,7 @@ export default function GameMode({ setDisplay, close }: GameProps) {
 
   function onSubmit(data: any) {
     startTransition(() => {
+      console.log(data);
       setDisplay('success');
     });
   }
@@ -55,7 +58,7 @@ export default function GameMode({ setDisplay, close }: GameProps) {
           <span className="text-primary-400">1500</span>
         </div>
       </div>
-      <div className="inline-flex h-full w-full items-start gap-6 rounded-lg border border-primary bg-white/[0.20] p-6 backdrop-blur-[8px]">
+      <div className="inline-flex size-full items-start gap-6 rounded-lg border border-primary bg-white/[0.20] p-6 backdrop-blur">
         {/* image */}
         <div className="">
           {/* <Image
@@ -124,7 +127,7 @@ export default function GameMode({ setDisplay, close }: GameProps) {
           <div className="space-y-[18px]">
             <h1 className="text-[0.875rem] font-medium">Key features</h1>
             <p>
-              Private balcony. Communal roof terrace. Resident's concierge service. Close
+              Private balcony. Communal roof terrace. Residents concierge service. Close
               proximity to green spaces. 999 year lease with peppercorn ground rent
             </p>
           </div>
@@ -133,13 +136,13 @@ export default function GameMode({ setDisplay, close }: GameProps) {
               <Input
                 type="number"
                 placeholder="Enter your guess"
-                className="py-5 outline-none placeholder:text-center placeholder:text-[1rem] placeholder:font-medium placeholder:opacity-[0.5]"
+                className="py-5 outline-none placeholder:text-center placeholder:text-[1rem] placeholder:font-medium placeholder:opacity-50"
                 {...form.register('price')}
               />
               <Button
                 type="submit"
                 fullWidth
-                disabled={!form.formState.isDirty || !form.formState.isValid || isPending}
+                disabled={isPending}
               >
                 Guess Now
               </Button>
@@ -166,7 +169,7 @@ interface DescriptionProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const DescriptionList = ({ className, title, description }: DescriptionProps) => {
   return (
-    <div className="text-0.875rem flex items-center gap-1 font-sans">
+    <div className="flex items-center gap-1 font-sans text-[0.875rem]">
       <dt>{title}:</dt>
       <dd className={cn('font-light', className)}>{description}</dd>
     </div>
