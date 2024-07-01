@@ -15,8 +15,8 @@ export async function playGame(gameType: 0 | 1 | 2, address: string) {
         toast.success(result.status.asInBlock.toString());
         console.log(`Completed at block hash #${result.status.asInBlock.toString()}`);
       } else if (result.status.isBroadcast) {
-        toast.error('Broadcasting the guess...');
-        console.log('Broadcasting the guess...');
+        toast.warning('Broadcasting the game...');
+        console.log('Broadcasting the game...');
       }
     });
 

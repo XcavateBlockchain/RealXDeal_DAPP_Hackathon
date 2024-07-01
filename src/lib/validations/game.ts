@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
 export const gameSchema = z.object({
-  price: z.number()
+  guess: z.number()
 });
+
+export type GuessInput = z.infer<typeof gameSchema>;

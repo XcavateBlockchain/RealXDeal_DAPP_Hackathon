@@ -13,7 +13,7 @@ import LiveGamePlay from './_components/live-game-container';
 import { getUserData } from '@/lib/queries';
 import ProfileHeader from './_components/profile-header';
 import { useSubstrateContext } from '@/context/polkadot-contex';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 // type Player = {
 //   Player: 1;
@@ -29,17 +29,17 @@ export default function App() {
   const { address } = useSubstrateContext();
   const [user, setUser] = useState<any>();
 
-  async function fetchUserDetails() {
+  const fetchUserDetails = useCallback(async () => {
     const userData = await getUserData(address);
-    console.log(userData);
+    // console.log(userData);
     if (userData !== null) {
       setUser(userData);
     }
-  }
+  }, [address]);
 
   useEffect(() => {
     fetchUserDetails();
-  }, []); // Add address as a dependency
+  }, [fetchUserDetails]);
 
   return (
     <Shell>

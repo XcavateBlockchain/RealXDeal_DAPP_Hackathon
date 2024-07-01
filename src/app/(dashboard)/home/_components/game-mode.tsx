@@ -6,7 +6,7 @@ import Form, { useZodForm } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import useLiveCountdown from '@/hooks/use-live-countdown';
 import { cn } from '@/lib/utils';
-import { gameSchema } from '@/lib/validations/game';
+import { gameSchema, GuessInput } from '@/lib/validations/game';
 import Image from 'next/image';
 import {
   Carousel,
@@ -17,7 +17,10 @@ import {
   CarouselThumbsContainer,
   SliderThumbItem
 } from '@/components/ui/extension-carousel';
-import { Dispatch, SetStateAction, useEffect, useTransition } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState, useTransition } from 'react';
+import { useSubstrateContext } from '@/context/polkadot-contex';
+import { getNextGameID } from '@/lib/queries';
+import { submitGameAnswer } from '@/lib/extrinsic';
 
 interface GameProps {
   setDisplay: Dispatch<SetStateAction<'start' | 'play' | 'success' | 'fail'>>;
@@ -26,19 +29,33 @@ interface GameProps {
 
 export default function GameMode({ setDisplay, close }: GameProps) {
   const [isPending, startTransition] = useTransition();
+  const [gameId, setGameID] = useState<any>();
+  const { address } = useSubstrateContext();
 
   const { seconds } = useLiveCountdown(60);
+
+  async function getGameId() {
+    const id = await getNextGameID();
+    if (id !== null) {
+      setGameID(id);
+    }
+  }
 
   const form = useZodForm({
     schema: gameSchema
   });
 
-  function onSubmit(data: any) {
+  function onSubmit(data: GuessInput) {
+    console.log(data);
     startTransition(() => {
-      console.log(data);
-      setDisplay('success');
+      // submitGameAnswer(address, gameId, data.guess);
+      // setDisplay('success');
     });
   }
+
+  useEffect(() => {
+    getGameId();
+  });
 
   useEffect(() => {
     if (seconds <= 0) {
@@ -78,7 +95,7 @@ export default function GameMode({ setDisplay, close }: GameProps) {
                     width={583}
                     height={474}
                     priority
-                    className="h-full"
+                    className="h-full saturate-50"
                   />
                 </SliderMainItem>
               ))}
@@ -137,13 +154,9 @@ export default function GameMode({ setDisplay, close }: GameProps) {
                 type="number"
                 placeholder="Enter your guess"
                 className="py-5 outline-none placeholder:text-center placeholder:text-[1rem] placeholder:font-medium placeholder:opacity-50"
-                {...form.register('price')}
+                {...form.register('guess')}
               />
-              <Button
-                type="submit"
-                fullWidth
-                disabled={isPending}
-              >
+              <Button type="submit" fullWidth disabled={isPending}>
                 Guess Now
               </Button>
             </Form>

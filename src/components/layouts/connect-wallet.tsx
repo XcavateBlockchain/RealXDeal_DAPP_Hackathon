@@ -141,7 +141,9 @@ function ConnectedSuccessFull({ close }: IProps) {
         <p className="text-[1rem]/[1.5rem] font-light">
           Guess correct property prices and win NFTs.
         </p>
-        <Button href="/home">Continue</Button>
+        <Button asChild>
+          <Link href="/home">Continue</Link>
+        </Button>
       </div>
     </AlertDialogContent>
   );

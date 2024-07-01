@@ -76,7 +76,7 @@ function StartGame({ type, close, setDisplay }: GameProps) {
 
   function onPlay() {
     startTransition(async () => {
-      await playGame(type, address);
+      // await playGame(type, address);
       setDisplay('play');
     });
   }
