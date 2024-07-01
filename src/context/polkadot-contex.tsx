@@ -3,9 +3,10 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 // import { web3Accounts, web3Enable, web3FromSource } from '@polkadot/extension-dapp';
-import { InjectedExtension, InjectedAccountWithMeta } from '@polkadot/extension-inject/types';
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { toast } from 'sonner';
+import { web3Enable, web3Accounts } from '@polkadot/extension-dapp';
+import { InjectedAccountWithMeta, InjectedExtension } from '@polkadot/extension-inject/types';
 
 // declare global {
 //   interface Window {
@@ -46,7 +47,7 @@ if (typeof window !== 'undefined') {
 export default function SubstrateContextProvider({ children }: SubstrateProps) {
   const router = useRouter();
   const [isConnected, setIsConnected] = useState<boolean>(false);
-  const [selectedAccount, setSelectedAccount] = useState<InjectedAccountWithMeta>();
+  const [selectedAccount, setSelectedAccount] = useState<InjectedExtension>();
   const [address, setAddress] = useState<string>('');
 
   // const handleConnect = async (walletName: 'talisman' | 'subwallet-js') => {
@@ -107,21 +108,31 @@ export default function SubstrateContextProvider({ children }: SubstrateProps) {
   // };
 
   const handleConnect = useCallback(async (walletName: 'talisman' | 'subwallet-js') => {
-    const { web3Enable, web3Accounts } = await import('@polkadot/extension-dapp');
+    
+    console.log(walletName)
+
     const extensions = await web3Enable('RealXDeal');
     if (extensions.length === 0) {
       toast.error('No Polkadot wallet extensions found!');
       return;
     }
 
-    // setIsLoading(true);
+    console.log(extensions)
+    const extension = extensions.find((value) => value.name === walletName)
 
-    const accounts = await web3Accounts();
-    const account = accounts[0].address;
 
-    setSelectedAccount(accounts[0]);
-    setAddress(account);
-    localStorage.setItem('selectedWalletAddress', account);
+    if (!extension) {
+      toast.error('No Polkadot wallet extensions found!');
+      return;
+    }
+    console.log(extension.name === walletName)
+
+
+    const account = (await extension.accounts.get())[0];
+
+    setSelectedAccount(extension);
+    setAddress(account.address);
+    localStorage.setItem('selectedWalletAddress', account.address);
     // setIsLoading(false);
     setIsConnected(true);
   }, []);
