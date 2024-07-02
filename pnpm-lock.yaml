@@ -32,6 +32,9 @@ importers:
       '@polkadot/extension-inject':
         specifier: ^0.47.6
         version: 0.47.6(@polkadot/api@11.3.1)(@polkadot/util@12.6.2)
+      '@polkadot/keyring':
+        specifier: ^12.6.2
+        version: 12.6.2(@polkadot/util-crypto@12.6.2(@polkadot/util@12.6.2))(@polkadot/util@12.6.2)
       '@radix-ui/react-alert-dialog':
         specifier: ^1.1.1
         version: 1.1.1(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -907,27 +910,8 @@ packages:
       '@types/react':
         optional: true
 
-<<<<<<< HEAD
-  /@radix-ui/react-slot@1.1.0(@types/react@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-FUCf5XMfmW4dtYl69pdS4DbxKy8nj4M7SafBgPllysxmdachynNflAdp/gCsnYWNDnge6tI9onzMp5ARYc1KNw==}
-    peerDependencies:
-      '@types/react': '*'
-      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-    dependencies:
-      '@radix-ui/react-compose-refs': 1.1.0(@types/react@18.3.1)(react@18.3.1)
-      '@types/react': 18.3.1
-      react: 18.3.1
-    dev: false
-
-  /@radix-ui/react-toast@1.1.5(@types/react-dom@18.3.0)(@types/react@18.3.1)(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-fRLn227WHIBRSzuRzGJ8W+5YALxofH23y0MlPLddaIpLpCDqdE0NZlS2NRQDRiptfxDeeCjgFIpexB1/zkxDlw==}
-=======
   '@radix-ui/react-toast@1.2.1':
     resolution: {integrity: sha512-5trl7piMXcZiCq7MW6r8YYmu0bK5qDpTWz+FdEPdKyft2UixkspheYbjbrLXVN5NGKHFbOP7lm8eD0biiSqZqg==}
->>>>>>> image-obfuscation
     peerDependencies:
       '@types/react': '*'
       '@types/react-dom': '*'

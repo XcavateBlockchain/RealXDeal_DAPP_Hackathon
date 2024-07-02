@@ -30,6 +30,10 @@ export async function getCurrentRoundID() {
 
 export async function getGameInfo(gameId: number) {
   const api = await getApi();
+  // const apiAt = await api.at(
+  //   '0x163029d36e699bbb6df2e449a5015efab1168092c9df385913ca7e6f5f0b3685'
+  // );
+
   const result = await api.query.gameModule.gameInfo(gameId);
   const output = result.toHuman();
   return output;
