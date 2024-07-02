@@ -2,7 +2,7 @@
 
 import { Icons } from '@/components/icons';
 import { Button } from '@/components/ui/button';
-import Form, { useZodForm } from '@/components/ui/form';
+// import Form, { useZodForm } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import useLiveCountdown from '@/hooks/use-live-countdown';
 import { cn } from '@/lib/utils';
@@ -17,10 +17,18 @@ import {
   CarouselThumbsContainer,
   SliderThumbItem
 } from '@/components/ui/extension-carousel';
-import { Dispatch, SetStateAction, useEffect, useState, useTransition } from 'react';
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+  useTransition
+} from 'react';
 import { useSubstrateContext } from '@/context/polkadot-contex';
 import { getNextGameID } from '@/lib/queries';
 import { submitGameAnswer } from '@/lib/extrinsic';
+import Form, { useZodForm } from '@/components/ui/form';
 
 interface GameProps {
   setDisplay: Dispatch<SetStateAction<'start' | 'play' | 'success' | 'fail'>>;
@@ -28,29 +36,38 @@ interface GameProps {
 }
 
 export default function GameMode({ setDisplay, close }: GameProps) {
-  const [isPending, startTransition] = useTransition();
+  // const [isPending, startTransition] = useTransition();
+  const [isLoading, setIsLoading] = useState(false);
   const [gameId, setGameID] = useState<any>();
   const { address } = useSubstrateContext();
 
   const { seconds } = useLiveCountdown(60);
 
-  async function getGameId() {
+  const getGameId = useCallback(async () => {
     const id = await getNextGameID();
     if (id !== null) {
       setGameID(id);
     }
-  }
+  }, []);
 
   const form = useZodForm({
     schema: gameSchema
   });
 
-  function onSubmit(data: GuessInput) {
-    console.log(data);
-    startTransition(() => {
-      // submitGameAnswer(address, gameId, data.guess);
-      // setDisplay('success');
-    });
+  async function onSubmit(event: any) {
+    setIsLoading(true);
+    event.preventDefault();
+    try {
+      const formData = new FormData(event.currentTarget);
+      const guess = Number(formData.get('guess') as string);
+      console.log(guess);
+      await submitGameAnswer(address, guess, gameId);
+      setDisplay('success');
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
   }
 
   useEffect(() => {
@@ -63,10 +80,12 @@ export default function GameMode({ setDisplay, close }: GameProps) {
     }
   });
 
+  console.log('GameID', gameId);
+
   return (
     <div className="space-y-[44px]">
       <div className="flex items-center justify-between">
-        <Button variant={'text'} onClick={close} className="p-0" disabled={isPending}>
+        <Button variant={'text'} onClick={close} className="p-0" disabled={isLoading}>
           <Icons.CaretLeft className="size-6" />
           Return
         </Button>
@@ -149,17 +168,17 @@ export default function GameMode({ setDisplay, close }: GameProps) {
             </p>
           </div>
           <div className="space-y-5">
-            <Form form={form} onSubmit={form.handleSubmit(onSubmit)}>
+            <form onSubmit={onSubmit} className="flex w-full flex-col items-start gap-6">
               <Input
                 type="number"
                 placeholder="Enter your guess"
                 className="py-5 outline-none placeholder:text-center placeholder:text-[1rem] placeholder:font-medium placeholder:opacity-50"
                 {...form.register('guess')}
               />
-              <Button type="submit" fullWidth disabled={isPending}>
+              <Button type="submit" fullWidth disabled={isLoading}>
                 Guess Now
               </Button>
-            </Form>
+            </form>
           </div>
         </div>
         {/* timer */}

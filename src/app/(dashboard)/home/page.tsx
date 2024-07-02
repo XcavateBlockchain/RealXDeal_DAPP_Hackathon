@@ -10,7 +10,7 @@ import { LeadBoardCard } from '@/components/cards/leadboard-card';
 // import { getApi } from '@/lib/polkadot';
 // import { web3Enable, web3FromAddress } from '@polkadot/extension-dapp';
 import LiveGamePlay from './_components/live-game-container';
-import { getUserData } from '@/lib/queries';
+import { getLeadBoards, getUserData } from '@/lib/queries';
 import ProfileHeader from './_components/profile-header';
 import { useSubstrateContext } from '@/context/polkadot-contex';
 import { useCallback, useEffect, useState } from 'react';
@@ -28,13 +28,22 @@ import { useCallback, useEffect, useState } from 'react';
 export default function App() {
   const { address } = useSubstrateContext();
   const [user, setUser] = useState<any>();
+  const [lists, setLists] = useState<any>([]);
+
+  async function fetchData(address: string) {
+    const boardList = await getLeadBoards();
+    const userData = await getUserData(address);
+
+    if (userData !== null && boardList !== null) {
+      return { boardList, userData };
+    }
+  }
 
   const fetchUserDetails = useCallback(async () => {
-    const userData = await getUserData(address);
-    // console.log(userData);
-    if (userData !== null) {
-      setUser(userData);
-    }
+    const data = await fetchData(address);
+    setUser(data?.userData);
+    // TODO add loading state
+    setLists(Array.isArray(data?.boardList) ? data?.boardList : []);
   }, [address]);
 
   useEffect(() => {
@@ -70,12 +79,16 @@ export default function App() {
       <section className="flex items-start gap-[54px]">
         <Card className="w-2/5" title="Top 5 players">
           <div className="flex w-full flex-col gap-6">
-            <LeadBoardCard points={2000} winner />
-            <LeadBoardCard points={2000} winner />
-            <LeadBoardCard points={2000} winner />
-            <LeadBoardCard points={2000} />
-            <LeadBoardCard points={2000} />
-            <LeadBoardCard points={2000} />
+            {/* TODO: create a skelton component */}
+            {lists.map((list: any, index: number) => (
+              <LeadBoardCard
+                key={index}
+                index={index + 1}
+                user={list[0]}
+                points={Number(list[1])}
+                winner={index + 1 > 3 ? false : true}
+              />
+            ))}
           </div>
         </Card>
         <Card className="w-3/5" title="NFTs Collected">

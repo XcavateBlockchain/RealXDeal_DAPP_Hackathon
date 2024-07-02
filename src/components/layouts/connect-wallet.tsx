@@ -149,8 +149,8 @@ function ConnectedSuccessFull({ close }: IProps) {
   );
 }
 
-export default function ConnectWallet() {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+export default function ConnectWallet({ open = false }: { open?: boolean }) {
+  const [isDialogOpen, setIsDialogOpen] = useState(open);
   // const [selectedAccount, setSelectedAccount] = useState<InjectedAccountWithMeta>();
   const [index, setIndex] = useState(1);
   const { selectedAccount, address } = useSubstrateContext();

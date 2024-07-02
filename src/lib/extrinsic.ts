@@ -18,6 +18,7 @@ export async function playGame(gameType: 0 | 1 | 2, address: string) {
         toast.warning('Broadcasting the game...');
         console.log('Broadcasting the game...');
       }
+      console.log('Play Result', result);
     });
 
     console.log('Transaction sent:', unsub);
@@ -26,11 +27,11 @@ export async function playGame(gameType: 0 | 1 | 2, address: string) {
   }
 }
 
-export async function submitGameAnswer(address: string, gameId: number, guess: any) {
+export async function submitGameAnswer(address: string, guess: any, gameId: number) {
   try {
     const api = await getApi();
     const injected = await web3FromAddress(address);
-    const extrinsic = api.tx.gameModule.submitAnswer(gameId, guess);
+    const extrinsic = api.tx.gameModule.submitAnswer(guess, gameId);
     const signer = injected.signer;
 
     const unsub = await extrinsic.signAndSend(address, { signer }, result => {
@@ -39,6 +40,7 @@ export async function submitGameAnswer(address: string, gameId: number, guess: a
       } else if (result.status.isBroadcast) {
         console.log('Broadcasting the guess...');
       }
+      console.log(result);
     });
 
     console.log('Transaction sent:', unsub);

@@ -1,11 +1,12 @@
 'use client';
 
+import ConnectWallet from '@/components/layouts/connect-wallet';
 import { useSubstrateContext } from '@/context/polkadot-contex';
 import { formatAddress, formatNumber } from '@/lib/utils';
 import Image from 'next/image';
 
 export default function ProfileHeader({ points }: { points: number }) {
-  const { address } = useSubstrateContext();
+  const { address, isConnected } = useSubstrateContext();
 
   return (
     <div className="flex w-full items-center justify-between pb-10">
@@ -24,10 +25,14 @@ export default function ProfileHeader({ points }: { points: number }) {
           </span>
         </div>
       </div>
-      <div className="space-x-2 text-[1.0625rem]/[1.5rem] font-light">
-        <span>Points:</span>
-        <span className="text-primary-400">{formatNumber(points)}X</span>
-      </div>
+      {isConnected ? (
+        <div className="space-x-2 text-[1.0625rem]/[1.5rem] font-light">
+          <span>Points:</span>
+          <span className="text-primary-400">{formatNumber(points)}X</span>
+        </div>
+      ) : (
+        <ConnectWallet open={isConnected === false ? true : false} />
+      )}
     </div>
   );
 }
