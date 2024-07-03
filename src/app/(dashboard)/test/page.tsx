@@ -9,6 +9,7 @@ export default function HomePage() {
   const [imageSrcs, setImageSrcs] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [propertyDisplay, setPropertyDisplay] = useState(null);
 
   // const handleGetImages = async () => {
   //   setLoading(true);
@@ -25,6 +26,16 @@ export default function HomePage() {
   //   }
   // };
 
+  const handlePlayGame = async () => {
+    try {
+      await playGame(0, '5FEda1GYvjMYcBiuRE7rb85QbD5bQNHuZajhRvHYTxm4PPz5', data => {
+        setPropertyDisplay(data);
+      });
+    } catch (error) {
+      console.log('error: ', error);
+    }
+  };
+
   return (
     <div>
       <h1>Home Page</h1>
@@ -38,13 +49,14 @@ export default function HomePage() {
         ))}
       </div>
 
-      <button
-        onClick={async () => {
-          await playGame(0, '5FEda1GYvjMYcBiuRE7rb85QbD5bQNHuZajhRvHYTxm4PPz5');
-        }}
-      >
-        TEST BUTTON
-      </button>
+      <button onClick={handlePlayGame}>TEST BUTTON</button>
+      {propertyDisplay && (
+        <div>
+          <h3>Game Details:</h3>
+          <p>{propertyDisplay}</p>{' '}
+          {/* Adjust this to display actual data from propertyDisplay */}
+        </div>
+      )}
     </div>
   );
 }

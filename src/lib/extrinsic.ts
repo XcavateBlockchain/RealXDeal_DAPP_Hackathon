@@ -11,7 +11,11 @@ interface GameInfo {
   };
 }
 
-export async function playGame(gameType: 0 | 1 | 2, address: string) {
+export async function playGame(
+  gameType: 0 | 1 | 2,
+  address: string,
+  handlePropertyDisplay: (data: any) => void
+) {
   try {
     const api = await getApi();
     const extensions = await web3Enable('RealXDEal');
@@ -20,7 +24,6 @@ export async function playGame(gameType: 0 | 1 | 2, address: string) {
     const signer = injected.signer;
 
     let eventProcessed = false;
-
     const unsub = await extrinsic.signAndSend(
       address,
       { signer },
@@ -38,8 +41,9 @@ export async function playGame(gameType: 0 | 1 | 2, address: string) {
             console.log('The game info is: ', gameInfo);
 
             const propertyDisplay = await fetchPropertyForDisplay(139361966);
+            handlePropertyDisplay(propertyDisplay);
 
-            console.log(propertyDisplay);
+            // console.log(propertyDisplay);
 
             toast.success(status.asInBlock.toString());
             console.log(`Completed at block hash #${status.asInBlock.toString()}`);
@@ -51,7 +55,7 @@ export async function playGame(gameType: 0 | 1 | 2, address: string) {
         }
       }
     );
-    console.log('Transaction sent:', unsub);
+    // console.log('Transaction sent:', unsub);
   } catch (error) {
     console.error('Failed to submit guess:', error);
   }
