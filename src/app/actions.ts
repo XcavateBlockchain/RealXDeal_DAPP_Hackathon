@@ -13,7 +13,8 @@ import sharp from 'sharp';
 import { createCanvas } from 'canvas';
 import { getApi } from '@/lib/polkadot';
 import Keyring from '@polkadot/keyring';
-import { GameResultType } from '@/lib/extrinsic';
+import { GameInfo, GameResultType } from '@/lib/extrinsic';
+import { getGameInfo, getUserData } from '@/lib/queries';
 
 const client = new DynamoDBClient({
   region: 'eu-west-2', // specify your region
@@ -64,9 +65,18 @@ async function applyCheckerboardOverlay(imageBuffer: ArrayBuffer) {
 }
 
 export async function checkResult(
-  data: GameResultType,
-  secret: { scheme: string; key: string; iv: string }
+  data: { guess: number; gameId: number; address: string }
+  // secret: { scheme: string; key: string; iv: string }
 ) {
+  const gameInfo = (await getGameInfo(data.gameId)) as unknown as GameInfo;
+  // await fetchPropertyData(gameInfo.property.id);
+  const propertyData = await fetchPropertyData(139361966);
+  const realPrice = propertyData!.price;
+  const secret = {
+    scheme: 'aes-256-cbc',
+    keyBase64: propertyData!.key,
+    ivBase64: propertyData!.iv
+  };
   const api = await getApi();
   const keyring = new Keyring({ type: 'sr25519' });
   const account = keyring.createFromJson({
@@ -89,7 +99,7 @@ export async function checkResult(
   const extrinsic = api.tx.gameModule.checkResult(
     data.guess,
     data.gameId,
-    data.price,
+    realPrice,
     JSON.stringify(secret)
   );
 
@@ -97,6 +107,15 @@ export async function checkResult(
   const unsub = await extrinsic.signAndSend(account, ({ status, events = [] }) => {
     if (status.isInBlock) {
       console.log('Transaction included at blockHash', status.asInBlock.toHex());
+      const ResultChecked = events.find(({ event }) =>
+        api.events.gameModule.ResultChecked.is(event)
+      );
+      if (ResultChecked) {
+        const points = ResultChecked.event.data[2].toString();
+        const won = ResultChecked.event.data[3].toString();
+        console.log('Points:', points);
+        console.log('Won:', won);
+      }
     } else if (status.isFinalized) {
       console.log('Transaction finalized at blockHash', status.asFinalized.toHex());
       unsub();

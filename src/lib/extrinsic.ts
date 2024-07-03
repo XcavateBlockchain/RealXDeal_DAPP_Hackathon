@@ -2,14 +2,16 @@ import { web3Enable, web3FromAddress } from '@polkadot/extension-dapp';
 import { getApi } from './polkadot';
 import { toast } from 'sonner';
 import { getGameInfo } from './queries';
-import { fetchPropertyForDisplay } from '@/app/actions';
+import { checkResult, fetchPropertyForDisplay } from '@/app/actions';
 
-interface GameInfo {
+export interface GameInfo {
   property: {
     id: number;
     [key: string]: any;
   };
 }
+
+function getPropertyId(gameId: number) {}
 
 export async function playGame(
   gameType: 0 | 1 | 2,
@@ -68,9 +70,11 @@ export async function submitGameAnswer(address: string, gameId: number, guess: a
     const extrinsic = api.tx.gameModule.submitAnswer(gameId, guess);
     const signer = injected.signer;
 
-    const unsub = await extrinsic.signAndSend(address, { signer }, result => {
+    const unsub = await extrinsic.signAndSend(address, { signer }, async result => {
       if (result.status.isInBlock) {
         console.log(`Completed at block hash #${result.status.asInBlock.toString()}`);
+        // here we need to call the server action to trigger the check_result function passing in the guess and the game_id
+        await checkResult({ guess, gameId, address });
       } else if (result.status.isBroadcast) {
         console.log('Broadcasting the guess...');
       }
