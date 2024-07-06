@@ -108,8 +108,7 @@ export default function SubstrateContextProvider({ children }: SubstrateProps) {
   // };
 
   const handleConnect = useCallback(async (walletName: 'talisman' | 'subwallet-js') => {
-    
-    console.log(walletName)
+    console.log(walletName);
 
     const extensions = await web3Enable('RealXDeal');
     if (extensions.length === 0) {
@@ -117,16 +116,14 @@ export default function SubstrateContextProvider({ children }: SubstrateProps) {
       return;
     }
 
-    console.log(extensions)
-    const extension = extensions.find((value) => value.name === walletName)
-
+    console.log(extensions);
+    const extension = extensions.find(value => value.name === walletName);
 
     if (!extension) {
       toast.error('No Polkadot wallet extensions found!');
       return;
     }
-    console.log(extension.name === walletName)
-
+    console.log(extension.name === walletName);
 
     const account = (await extension.accounts.get())[0];
 

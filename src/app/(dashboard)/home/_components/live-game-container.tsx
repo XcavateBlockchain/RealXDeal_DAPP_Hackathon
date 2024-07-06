@@ -27,6 +27,8 @@ type GameType = 0 | 1;
 
 export default function LiveGamePlay({ type }: { type: GameType }) {
   const [openGameSheet, setOpenGameSheet] = useState<boolean>(false);
+
+  const [propertyDisplay, setPropertyDisplay] = useState(null);
   const [display, setDisplay] = useState<'start' | 'play' | 'success' | 'fail'>('start');
 
   function closeGameSheet() {
@@ -34,11 +36,20 @@ export default function LiveGamePlay({ type }: { type: GameType }) {
   }
 
   const game: IGamePlaySection = {
-    start: <StartGame type={type} setDisplay={setDisplay} close={closeGameSheet} />,
+    start: (
+      <StartGame
+        type={type}
+        setDisplay={setDisplay}
+        close={closeGameSheet}
+        setPropertyDisplay={setPropertyDisplay}
+      />
+    ),
     play: <GameMode setDisplay={setDisplay} close={closeGameSheet} />,
     success: <GuessPass close={closeGameSheet} />,
     fail: <GuessFail close={closeGameSheet} />
   };
+
+  console.log(propertyDisplay);
 
   return (
     <Sheet open={openGameSheet} onOpenChange={setOpenGameSheet}>
@@ -67,24 +78,34 @@ export default function LiveGamePlay({ type }: { type: GameType }) {
 interface GameProps {
   type: GameType;
   setDisplay: Dispatch<SetStateAction<'start' | 'play' | 'success' | 'fail'>>;
+  setPropertyDisplay: Dispatch<SetStateAction<any>>;
   close: () => void;
 }
 
-function StartGame({ type, close, setDisplay }: GameProps) {
+function StartGame({ type, close, setDisplay, setPropertyDisplay }: GameProps) {
   const { address } = useSubstrateContext();
-  const [isPending, startTransition] = useTransition();
+  const [isLoading, setIsLoading] = useState(false);
 
-  function onPlay() {
-    startTransition(async () => {
-      await playGame(type, address);
-      setDisplay('play');
-    });
+  // const [isPending, startTransition] = useTransition();
+
+  async function onPlay() {
+    try {
+      setIsLoading(true);
+      await playGame(type, address, data => {
+        setPropertyDisplay(data);
+        setDisplay('play');
+      });
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
   }
 
   return (
     <div className="space-y-[44px]">
       <div className="flex items-center justify-between">
-        <Button variant={'text'} onClick={close} className="p-0" disabled={isPending}>
+        <Button variant={'text'} onClick={close} className="p-0" disabled={isLoading}>
           <Icons.CaretLeft className="size-6" />
           Return
         </Button>
@@ -97,7 +118,7 @@ function StartGame({ type, close, setDisplay }: GameProps) {
         <Button
           className="size-[250px] rounded-full p-10 font-heading text-[2.84569rem] font-bold shadow-game"
           onClick={onPlay}
-          disabled={isPending}
+          disabled={isLoading}
         >
           Start <br /> Game
         </Button>
