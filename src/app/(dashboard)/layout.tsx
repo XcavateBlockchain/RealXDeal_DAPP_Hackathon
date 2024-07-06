@@ -1,17 +1,11 @@
 import SidebarNav from '@/components/layouts/sidebar-nav';
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 
 // const SubstrateContextProvider = dynamic(() => import('@/context/polkadot-contex'), {
 //   ssr: false
 // });
 
-export default async function DashboardLayout({
-  children,
-  modal
-}: Readonly<{
-  children: React.ReactNode;
-  modal: React.ReactNode;
-}>) {
+export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
     // <SubstrateContextProvider>
     <section className="min-h-screen w-full overflow-hidden">
