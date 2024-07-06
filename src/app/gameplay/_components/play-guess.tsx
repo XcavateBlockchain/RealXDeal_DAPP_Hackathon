@@ -1,3 +1,4 @@
+/* eslint-disable tailwindcss/no-custom-classname */
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -58,7 +59,7 @@ export default function PlayGuess({ setDisplay }: GameProps) {
       <div className="flex w-full flex-col">
         <div className="flex items-center justify-between">
           {/* <p>Return</p> */}
-          <Button href="/home" variant={'text'} size={'md'}>
+          <Button variant={'text'} size={'md'}>
             <Icons.CaretLeft className="size-6" /> Return
           </Button>
           <p>
@@ -67,11 +68,11 @@ export default function PlayGuess({ setDisplay }: GameProps) {
         </div>
         <div
           style={{ background: 'rgba(255, 255, 255, 0.20)' }}
-          className="backdrop-blur-8 bg- mt-10 flex h-[70vh] gap-3 rounded-md border-[1px] border-[#3B4F74] px-4 py-8"
+          className="backdrop-blur-8 bg- mt-10 flex h-[70vh] gap-3 rounded-md border border-border px-4 py-8"
         >
-          <div className="game-play-bg relative w-1/2 border-[1px] border-[#57A0C5]">
-            <div className="absolute bottom-[-44px]  left-[5rem] flex h-[20%] w-2/3 gap-3">
-              <div className="flex  h-[100%] w-1/3 items-center justify-center overflow-hidden rounded-md shadow-md">
+          <div className="game-play-bg relative w-1/2 border border-[#57A0C5]">
+            <div className="absolute bottom-[-44px]  left-20 flex h-1/5 w-2/3 gap-3">
+              <div className="flex  h-full w-1/3 items-center justify-center overflow-hidden rounded-md shadow-md">
                 <Image
                   src="/images/bedroom.png"
                   width={100}
@@ -79,7 +80,7 @@ export default function PlayGuess({ setDisplay }: GameProps) {
                   alt="property image"
                 />
               </div>
-              <div className="flex  h-[100%] w-1/3 items-center justify-center overflow-hidden rounded-md shadow-md">
+              <div className="flex  h-full w-1/3 items-center justify-center overflow-hidden rounded-md shadow-md">
                 <Image
                   src="/images/bedroom.png"
                   width={100}
@@ -87,7 +88,7 @@ export default function PlayGuess({ setDisplay }: GameProps) {
                   alt="property image"
                 />
               </div>
-              <div className="flex  h-[100%] w-1/3 items-center justify-center overflow-hidden rounded-md shadow-md">
+              <div className="flex  h-full w-1/3 items-center justify-center overflow-hidden rounded-md shadow-md">
                 <Image
                   src="/images/bedroom.png"
                   width={100}
@@ -111,14 +112,14 @@ export default function PlayGuess({ setDisplay }: GameProps) {
 
               <p className="font-bold leading-10">Key Features</p>
               <p className="text-sm">
-                Private balcony. Communal roof terrace. Resident's concierge service. Close
+                Private balcony. Communal roof terrace. Residents concierge service. Close
                 proximity to green spaces. 999 year lease with peppercorn ground rent
               </p>
               <input
                 type="text"
                 value={guess}
                 onChange={handleGuessChange}
-                className="mt-4 rounded-md border-[1px] border-[#57A0C5] bg-transparent p-3 placeholder:text-center"
+                className="mt-4 rounded-md border border-[#57A0C5] bg-transparent p-3 placeholder:text-center"
                 placeholder="Enter your guess"
                 disabled={isSubmitting}
               />

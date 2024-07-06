@@ -124,7 +124,7 @@ export default function Page({
         <div className="flex justify-between">
           <div className="flex gap-2">
             <img
-              className="h-24 w-24 rounded-full"
+              className="size-24 rounded-full"
               src="/images/profile.jpeg"
               alt="Rounded avatar"
               style={{ boxShadow: '0px 0px 24px 0px #ECB278', border: '4px solid #DAB436' }}
@@ -145,7 +145,7 @@ export default function Page({
             </span>
           </div>
         </div>
-        <Card className="mt-10  w-[100%] gap-2" title="Gallery">
+        <Card className="mt-10  w-full gap-2" title="Gallery">
           <div className="mt-3 flex gap-3">
             <CircleCard color="#ECB278" />
             <CircleCard color="#57A0C5" />
@@ -160,7 +160,7 @@ export default function Page({
               <Link href="/" className=" inline-block  p-2 py-3 font-normal text-[#FFFFFF] ">
                 Nfts
               </Link>
-              <span className=" mx-0 inline-flex h-5 w-5 items-center justify-center rounded-md bg-[#DC7DA6] text-[10px] font-normal text-[#FFFFFF]">
+              <span className=" mx-0 inline-flex size-5 items-center justify-center rounded-md bg-[#DC7DA6] text-[10px] font-normal text-[#FFFFFF]">
                 23
               </span>
             </li>
@@ -168,7 +168,7 @@ export default function Page({
               <Link href="/" className="inline-block p-2 py-3 font-normal text-[#FFFFFF]">
                 Listed
               </Link>
-              <span className=" mx-0 inline-flex h-5 w-5 items-center justify-center rounded-md bg-[#DC7DA6] text-[10px] font-normal text-[#FFFFFF]">
+              <span className=" mx-0 inline-flex size-5 items-center justify-center rounded-md bg-[#DC7DA6] text-[10px] font-normal text-[#FFFFFF]">
                 0
               </span>
             </li>
@@ -176,14 +176,14 @@ export default function Page({
               <Link href="/" className="inline-block p-2 py-3 font-normal text-[#FFFFFF]">
                 Offers
               </Link>
-              <span className=" mx-0 inline-flex h-5 w-5 items-center justify-center rounded-md bg-[#DC7DA6] text-[10px] font-normal text-[#FFFFFF]">
+              <span className=" mx-0 inline-flex size-5 items-center justify-center rounded-md bg-[#DC7DA6] text-[10px] font-normal text-[#FFFFFF]">
                 4
               </span>
             </li>
             <li className="">
               <Link href="/" className="inline-block p-2 py-3 font-normal text-[#FFFFFF]">
                 Challenges{' '}
-                <span className=" mx-0 inline-flex h-5 w-5 items-center justify-center rounded-md bg-[#DC7DA6] text-[10px] font-normal text-[#FFFFFF]">
+                <span className=" mx-0 inline-flex size-5 items-center justify-center rounded-md bg-[#DC7DA6] text-[10px] font-normal text-[#FFFFFF]">
                   20
                 </span>
               </Link>
@@ -198,18 +198,18 @@ export default function Page({
                 key={collection}
                 variant={'outline'}
                 size={'sm'}
-                href={`${BASE_URL}?collection=${collection}`}
                 className={
                   active ? 'border-primary-300 bg-primary-300/15 text-primary-300' : ''
                 }
+                asChild
               >
-                {collection}
+                <Link href={`${BASE_URL}?collection=${collection}`}>{collection}</Link>
               </Button>
             );
           })}
         </div>
         <section className="flex w-full flex-col gap-8">
-          <div className="grid h-full w-full grid-cols-4 gap-[23px]">
+          <div className="grid size-full grid-cols-4 gap-[23px]">
             {siteConfig.nfts.map((nft: any) => (
               <ProfileNFTCard
                 key={nft.nftId}
