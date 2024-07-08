@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 const shellVariants = cva('grid items-center gap-10', {
   variants: {
     variant: {
-      default: 'container max-w-screen-[1440px] mx-auto p-[47px] grid gap-8'
+      default: 'max-w-screen-[1440px] container mx-auto grid gap-8 p-[47px]'
     }
   },
   defaultVariants: {

@@ -332,7 +332,7 @@ const CarouselPrevious = forwardRef<HTMLButtonElement, React.ComponentProps<type
         variant={variant}
         size={size}
         className={cn(
-          'absolute z-10 h-6 w-6 rounded-full',
+          'absolute z-10 size-6 rounded-full',
           orientation === 'vertical'
             ? '-top-2 left-1/2 -translate-x-1/2 rotate-90'
             : '-left-2 top-1/2 -translate-y-1/2',
@@ -342,7 +342,7 @@ const CarouselPrevious = forwardRef<HTMLButtonElement, React.ComponentProps<type
         disabled={!canScroll}
         {...props}
       >
-        <LessThan className="h-4 w-4" />
+        <LessThan className="size-4" />
         <span className="sr-only">Previous slide</span>
       </Button>
     );
@@ -362,7 +362,7 @@ const CarouselNext = forwardRef<HTMLButtonElement, React.ComponentProps<typeof B
         variant={variant}
         size={size}
         className={cn(
-          'absolute z-10 h-6 w-6 rounded-full',
+          'absolute z-10 size-6 rounded-full',
           orientation === 'vertical'
             ? '-bottom-2 left-1/2 -translate-x-1/2 rotate-90'
             : '-right-2 top-1/2 -translate-y-1/2',
@@ -372,7 +372,7 @@ const CarouselNext = forwardRef<HTMLButtonElement, React.ComponentProps<typeof B
         disabled={!canScroll}
         {...props}
       >
-        <ChevronRightIcon className="h-4 w-4" />
+        <ChevronRightIcon className="size-4" />
         <span className="sr-only">Next slide</span>
       </Button>
     );

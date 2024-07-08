@@ -200,7 +200,7 @@ export default function ConnectWallet({ open = false }: { open?: boolean }) {
   return (
     <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <AlertDialogTrigger asChild>
-        <button className="flex max-w-[250px] items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap rounded-lg border border-primary-300 px-[45px] py-4 font-heading text-[1rem] font-medium text-primary-300 hover:border-white hover:text-white">
+        <button className="flex max-w-[250px] items-center gap-2 truncate rounded-lg border border-primary-300 px-[45px] py-4 font-heading text-[1rem] font-medium text-primary-300 hover:border-white hover:text-white">
           {selectedAccount ? (
             <span className="">{formatAddress(address)}</span>
           ) : (

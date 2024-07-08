@@ -131,6 +131,7 @@ export const siteConfig = {
       latitude: 52.625284,
       longitude: 1.30124
     },
+    images: [],
     summary:
       'Second floor apartment located a short stroll from the City centre, Good sized lounge, Kitchen/Diner, Two bedrooms, E-Suite & Bathroom, Double glazing & electric heating, Designated Parking Space.'
   } as GameData

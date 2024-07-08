@@ -28,7 +28,7 @@ type GameType = 0 | 1;
 export default function LiveGamePlay({ type }: { type: GameType }) {
   const [openGameSheet, setOpenGameSheet] = useState<boolean>(false);
 
-  const [propertyDisplay, setPropertyDisplay] = useState(null);
+  const [propertyDisplay, setPropertyDisplay] = useState<any>();
   const [display, setDisplay] = useState<'start' | 'play' | 'success' | 'fail'>('start');
 
   function closeGameSheet() {
@@ -44,7 +44,7 @@ export default function LiveGamePlay({ type }: { type: GameType }) {
         setPropertyDisplay={setPropertyDisplay}
       />
     ),
-    play: <GameMode setDisplay={setDisplay} close={closeGameSheet} />,
+    play: <GameMode data={propertyDisplay} setDisplay={setDisplay} close={closeGameSheet} />,
     success: <GuessPass close={closeGameSheet} />,
     fail: <GuessFail close={closeGameSheet} />
   };
@@ -91,10 +91,11 @@ function StartGame({ type, close, setDisplay, setPropertyDisplay }: GameProps) {
   async function onPlay() {
     try {
       setIsLoading(true);
-      await playGame(type, address, data => {
-        setPropertyDisplay(data);
+      await playGame(type, address, async data => {
+        setPropertyDisplay(await data);
         setDisplay('play');
       });
+
       setIsLoading(false);
     } catch (error) {
       console.log(error);

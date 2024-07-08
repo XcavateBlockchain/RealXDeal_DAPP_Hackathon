@@ -13,7 +13,7 @@ export default function Tasks() {
   return (
     <Shell>
       <section className="flex justify-between">
-        <CardWithoutHeading className="w-[40%]">
+        <CardWithoutHeading className="w-2/5">
           <PlayerStats title="Guesses" value={10} />
           <PlayerStats title="Correct " value={6} />
           <PlayerStats title="Failed " value={0} />
@@ -85,7 +85,7 @@ export default function Tasks() {
 
 export const TaskCard = ({ type, title, description }: TaskCardProps) => {
   return (
-    <div className="flex flex-col items-start justify-start gap-4 rounded-lg bg-[#3E4F6D] px-6 py-10 backdrop-blur-[8px] backdrop-filter">
+    <div className="flex flex-col items-start justify-start gap-4 rounded-lg bg-[#3E4F6D] px-6 py-10 backdrop-blur">
       <dt className="flex items-start gap-2 ">
         <Icons.xLogo className="size-6" />{' '}
         <span className="font-heading text-[0.875rem]/[1.543m] font-medium">{title}</span>

@@ -13,7 +13,7 @@ export function GuessPass({ close }: GameProps) {
         <span className="text-primary-400">1500</span>
       </div>
 
-      <div className="inline-flex w-[512px] flex-col items-center justify-center gap-6 rounded-lg bg-[#172234] px-6 pb-10 pt-6 backdrop-blur-[8px]">
+      <div className="inline-flex w-[512px] flex-col items-center justify-center gap-6 rounded-lg bg-[#172234] px-6 pb-10 pt-6 backdrop-blur">
         <div className="h-[320px] w-[239px] rounded-[10px] bg-white/[0.20]">
           <Image
             src={'/images/Xpurple_property_NFT12_apartment.webp'}
@@ -44,7 +44,7 @@ export function GuessFail({ close }: GameProps) {
         <span className="text-primary-400">1500</span>
       </div>
 
-      <div className="inline-flex w-[512px] flex-col items-center justify-center gap-6 rounded-lg bg-[#172234] px-6 pb-10 pt-6 backdrop-blur-[8px]">
+      <div className="inline-flex w-[512px] flex-col items-center justify-center gap-6 rounded-lg bg-[#172234] px-6 pb-10 pt-6 backdrop-blur">
         <div className="h-[320px] w-[239px] rounded-[10px] bg-white/[0.20]"></div>
 
         <div className="flex w-full max-w-[307px] flex-col items-center justify-center gap-2 text-center">
