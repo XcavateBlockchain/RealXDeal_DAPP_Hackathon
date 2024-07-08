@@ -16,7 +16,7 @@ function getPropertyId(gameId: number) {}
 export async function playGame(
   gameType: 0 | 1 | 2,
   address: string,
-  handlePropertyDisplay: (data: any) => void
+  handlePropertyDisplay: (data: any, gameId: any) => void
 ) {
   try {
     const api = await getApi();
@@ -43,16 +43,17 @@ export async function playGame(
             console.log('The game info is: ', gameInfo);
 
             const propertyDisplay = await fetchPropertyForDisplay(139361966);
-            handlePropertyDisplay(propertyDisplay);
+            handlePropertyDisplay(propertyDisplay, gameId);
 
             // console.log(propertyDisplay);
 
             toast.success(status.asInBlock.toString());
             console.log(`Completed at block hash #${status.asInBlock.toString()}`);
+            unsub();
           } else if (dispatchError) {
             // display a warning and prompt to retry
-            toast.warning('Broadcasting the game...');
-            console.log('Broadcasting the game...');
+            toast.warning('There was an error');
+            console.log(dispatchError.toHuman());
           }
         }
       }
@@ -64,7 +65,9 @@ export async function playGame(
 }
 
 export async function submitGameAnswer(address: string, guess: any, gameId: number) {
+  console.log('PASSED IN DATA', address, guess, gameId);
   try {
+    console.log('Submitting answer.....');
     const api = await getApi();
     const injected = await web3FromAddress(address);
     const extrinsic = api.tx.gameModule.submitAnswer(guess, gameId);
@@ -73,12 +76,11 @@ export async function submitGameAnswer(address: string, guess: any, gameId: numb
     const unsub = await extrinsic.signAndSend(address, { signer }, async result => {
       if (result.status.isInBlock) {
         console.log(`Completed at block hash #${result.status.asInBlock.toString()}`);
-        // here we need to call the server action to trigger the check_result function passing in the guess and the game_id
         await checkResult({ guess, gameId, address });
+        unsub();
       } else if (result.status.isBroadcast) {
         console.log('Broadcasting the guess...');
       }
-      console.log(result);
     });
 
     console.log('Transaction sent:', unsub);

@@ -9,6 +9,7 @@ import { GuessFail, GuessPass } from './success-failure';
 import { Icons } from '@/components/icons';
 import { playGame } from '@/lib/extrinsic';
 import { useSubstrateContext } from '@/context/polkadot-contex';
+import { set } from 'zod';
 interface IGamePlaySection {
   [key: string]: ReactNode;
 }
@@ -27,7 +28,7 @@ type GameType = 0 | 1;
 
 export default function LiveGamePlay({ type }: { type: GameType }) {
   const [openGameSheet, setOpenGameSheet] = useState<boolean>(false);
-
+  const [gameId, setGameId] = useState(null);
   const [propertyDisplay, setPropertyDisplay] = useState(null);
   const [display, setDisplay] = useState<'start' | 'play' | 'success' | 'fail'>('start');
 
@@ -42,14 +43,13 @@ export default function LiveGamePlay({ type }: { type: GameType }) {
         setDisplay={setDisplay}
         close={closeGameSheet}
         setPropertyDisplay={setPropertyDisplay}
+        setGameId={setGameId}
       />
     ),
-    play: <GameMode setDisplay={setDisplay} close={closeGameSheet} />,
+    play: <GameMode setDisplay={setDisplay} close={closeGameSheet} gameId={gameId} />,
     success: <GuessPass close={closeGameSheet} />,
     fail: <GuessFail close={closeGameSheet} />
   };
-
-  console.log(propertyDisplay);
 
   return (
     <Sheet open={openGameSheet} onOpenChange={setOpenGameSheet}>
@@ -79,10 +79,11 @@ interface GameProps {
   type: GameType;
   setDisplay: Dispatch<SetStateAction<'start' | 'play' | 'success' | 'fail'>>;
   setPropertyDisplay: Dispatch<SetStateAction<any>>;
+  setGameId: Dispatch<SetStateAction<any>>;
   close: () => void;
 }
 
-function StartGame({ type, close, setDisplay, setPropertyDisplay }: GameProps) {
+function StartGame({ type, close, setDisplay, setPropertyDisplay, setGameId }: GameProps) {
   const { address } = useSubstrateContext();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -91,8 +92,9 @@ function StartGame({ type, close, setDisplay, setPropertyDisplay }: GameProps) {
   async function onPlay() {
     try {
       setIsLoading(true);
-      await playGame(type, address, data => {
+      await playGame(type, address, (data, gameId) => {
         setPropertyDisplay(data);
+        setGameId(gameId);
         setDisplay('play');
       });
       setIsLoading(false);

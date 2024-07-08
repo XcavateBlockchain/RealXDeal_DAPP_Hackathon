@@ -33,22 +33,23 @@ import Form, { useZodForm } from '@/components/ui/form';
 interface GameProps {
   setDisplay: Dispatch<SetStateAction<'start' | 'play' | 'success' | 'fail'>>;
   close: () => void;
+  gameId: any;
 }
 
-export default function GameMode({ setDisplay, close }: GameProps) {
+export default function GameMode({ setDisplay, close, gameId }: GameProps) {
   // const [isPending, startTransition] = useTransition();
   const [isLoading, setIsLoading] = useState(false);
-  const [gameId, setGameID] = useState<any>();
+  // const [gameId, setGameID] = useState<any>();
   const { address } = useSubstrateContext();
 
   const { seconds } = useLiveCountdown(60);
 
-  const getGameId = useCallback(async () => {
-    const id = await getNextGameID();
-    if (id !== null) {
-      setGameID(id);
-    }
-  }, []);
+  // const getGameId = useCallback(async () => {
+  //   const id = await getNextGameID();
+  //   if (id !== null) {
+  //     setGameID(id);
+  //   }
+  // }, []);
 
   const form = useZodForm({
     schema: gameSchema
@@ -70,9 +71,9 @@ export default function GameMode({ setDisplay, close }: GameProps) {
     }
   }
 
-  useEffect(() => {
-    getGameId();
-  });
+  // useEffect(() => {
+  //   getGameId();
+  // });
 
   useEffect(() => {
     if (seconds <= 0) {
@@ -80,7 +81,7 @@ export default function GameMode({ setDisplay, close }: GameProps) {
     }
   });
 
-  console.log('GameID', gameId);
+  // console.log('GameID', gameId);
 
   return (
     <div className="space-y-[44px]">
