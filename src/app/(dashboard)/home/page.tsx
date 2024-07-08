@@ -14,17 +14,6 @@ import { getLeadBoards, getUserData } from '@/lib/queries';
 import ProfileHeader from './_components/profile-header';
 import { useSubstrateContext } from '@/context/polkadot-contex';
 import { useCallback, useEffect, useState } from 'react';
-import { fetchPropertyData } from '@/app/actions';
-
-// type Player = {
-//   Player: 1;
-// };
-
-// type Practice = {
-//   Practice: 0;
-// };
-
-// type GameType = Player | Practice;
 
 export default function App() {
   const { address } = useSubstrateContext();
@@ -33,8 +22,6 @@ export default function App() {
 
   async function fetchData(address: string) {
     const boardList = await getLeadBoards();
-    // const property = await fetchPropertyData(139361966)
-    // console.log(property)
     const userData = await getUserData(address);
 
     if (userData !== null && boardList !== null) {
@@ -58,7 +45,7 @@ export default function App() {
       <ProfileHeader points={user?.points} />
       <section className=" flex w-full gap-[54px]">
         <CardWithoutHeading className="w-2/5">
-          <PlayerStats title="Guesses" value={10} />
+          <PlayerStats title="Guesses" value={Number(user?.wins) + Number(user?.losses)} />
           <PlayerStats title="Correct " value={user?.wins} />
           <PlayerStats title="Failed " value={user?.losses} />
         </CardWithoutHeading>
