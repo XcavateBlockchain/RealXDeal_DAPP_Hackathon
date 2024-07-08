@@ -56,11 +56,7 @@ export default function Page() {
     <Shell>
       <div className="flex justify-between">
         <div className="flex items-center gap-2">
-          <img
-            className="size-10 rounded-full"
-            src="/images/user.png"
-            alt="Rounded avatar"
-          />
+          <img className="size-10 rounded-full" src="/images/user.png" alt="Rounded avatar" />
           <p className=" ml-3">Deal Real Dev</p>
           <span className="me-2 rounded-xl bg-[#DC7DA63D] px-2.5  py-0.5 text-xs text-white shadow-none ">
             1Ay00011DY...

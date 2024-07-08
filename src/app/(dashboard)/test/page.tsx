@@ -29,7 +29,7 @@ export default function HomePage() {
   const handlePlayGame = async () => {
     console.log('Button clicked');
     try {
-      await playGame(0, '5FEda1GYvjMYcBiuRE7rb85QbD5bQNHuZajhRvHYTxm4PPz5', data => {
+      await playGame(0, '5FEda1GYvjMYcBiuRE7rb85QbD5bQNHuZajhRvHYTxm4PPz5', async data => {
         setPropertyDisplay(data);
       });
     } catch (error) {
