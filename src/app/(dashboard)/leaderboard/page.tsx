@@ -11,7 +11,7 @@ type LeaderProps = {
   winner?: boolean;
 };
 
-export function LeaderBoardCard({ points, winner }: LeaderProps) {
+function LeaderBoardCard({ points, winner }: LeaderProps) {
   return (
     <div className={cn('flex w-full items-center justify-between rounded-lg p-2')}>
       <div className="flex items-center gap-6">
@@ -30,7 +30,8 @@ export function LeaderBoardCard({ points, winner }: LeaderProps) {
     </div>
   );
 }
-async function ChampionCard() {
+
+function ChampionCard() {
   return (
     <>
       <div className="flex justify-between">
@@ -51,12 +52,20 @@ async function ChampionCard() {
     </>
   );
 }
+
 export default function Page() {
   return (
     <Shell>
       <div className="flex justify-between">
         <div className="flex items-center gap-2">
-          <img className="size-10 rounded-full" src="/images/user.png" alt="Rounded avatar" />
+          <Image
+            className="size-10 rounded-full"
+            src="/images/user.png"
+            width={40}
+            height={40}
+            priority
+            alt="Rounded avatar"
+          />
           <p className=" ml-3">Deal Real Dev</p>
           <span className="me-2 rounded-xl bg-[#DC7DA63D] px-2.5  py-0.5 text-xs text-white shadow-none ">
             1Ay00011DY...
