@@ -16,7 +16,7 @@ function getPropertyId(gameId: number) {}
 export async function playGame(
   gameType: 0 | 1 | 2,
   address: string,
-  handlePropertyDisplay: (data: any) => void
+  handlePropertyDisplay: (data: any) => Promise<void>
 ) {
   try {
     const api = await getApi();
@@ -43,7 +43,8 @@ export async function playGame(
             console.log('The game info is: ', gameInfo);
 
             const propertyDisplay = await fetchPropertyForDisplay(139361966);
-            handlePropertyDisplay(propertyDisplay);
+            console.log(propertyDisplay);
+            await handlePropertyDisplay(propertyDisplay);
 
             // console.log(propertyDisplay);
 
@@ -63,7 +64,7 @@ export async function playGame(
   }
 }
 
-export async function submitGameAnswer(address: string, guess: any, gameId: number) {
+export async function submitGameAnswer(address: string, guess: number, gameId: number) {
   try {
     const api = await getApi();
     const injected = await web3FromAddress(address);

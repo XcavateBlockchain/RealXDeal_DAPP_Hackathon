@@ -4,6 +4,7 @@ import { Shell } from '@/components/shell';
 import { Button } from '@/components/ui/button';
 import { siteConfig } from '@/config/site';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const collections = ['All', 'Blue', 'Red', 'Pink', 'Orange', 'Purple', 'Teal', 'Coral'];
 
@@ -20,7 +21,7 @@ export default function Page({
   return (
     <Shell>
       <Card title="Trending">
-        <div className="grid h-full w-full grid-cols-4 gap-[13px]">
+        <div className="grid size-full grid-cols-4 gap-[13px]">
           {data.map((nft: any) => (
             <NFTCard
               key={nft.nftId}
@@ -46,12 +47,12 @@ export default function Page({
                 key={collection}
                 variant={'outline'}
                 size={'sm'}
-                href={`/marketplace?collection=${collection}`}
                 className={
                   active ? 'border-primary-300 bg-primary-300/15 text-primary-300' : ''
                 }
+                asChild
               >
-                {collection}
+                <Link href={`/marketplace?collection=${collection}`}>{collection}</Link>
               </Button>
             );
           })}
@@ -61,7 +62,7 @@ export default function Page({
       <section className="flex w-full flex-col gap-8">
         <h2 className="text-[1rem] font-medium">Listings</h2>
 
-        <div className="grid h-full w-full grid-cols-4 gap-[23px]">
+        <div className="grid size-full grid-cols-4 gap-[23px]">
           {siteConfig.nfts.map((nft: any) => (
             <NFTCard
               key={nft.nftId}

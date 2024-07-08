@@ -21,7 +21,7 @@ export function LeaderBoardCard({ points, winner }: LeaderProps) {
           <span className="text-[0.875rem] text-primary-foreground">01</span>
         )}
         <div className="flex items-center gap-2">
-          <img className="h-6 w-6 rounded-full" src="/images/user.png" alt="Rounded avatar" />
+          <img className="size-6 rounded-full" src="/images/user.png" alt="Rounded avatar" />
           <span className="text-[0.875rem] text-primary-foreground">Victor X</span>
         </div>
       </div>
@@ -51,13 +51,13 @@ async function ChampionCard() {
     </>
   );
 }
-export default async function Page() {
+export default function Page() {
   return (
     <Shell>
       <div className="flex justify-between">
         <div className="flex items-center gap-2">
           <img
-            className="h-10 w-10 rounded-full"
+            className="size-10 rounded-full"
             src="/images/user.png"
             alt="Rounded avatar"
           />

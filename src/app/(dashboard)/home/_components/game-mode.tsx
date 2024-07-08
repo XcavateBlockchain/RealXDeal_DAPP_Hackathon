@@ -29,13 +29,15 @@ import { useSubstrateContext } from '@/context/polkadot-contex';
 import { getNextGameID } from '@/lib/queries';
 import { submitGameAnswer } from '@/lib/extrinsic';
 import Form, { useZodForm } from '@/components/ui/form';
+import { GameData } from '@/types';
 
 interface GameProps {
+  data: GameData;
   setDisplay: Dispatch<SetStateAction<'start' | 'play' | 'success' | 'fail'>>;
   close: () => void;
 }
 
-export default function GameMode({ setDisplay, close }: GameProps) {
+export default function GameMode({ data, setDisplay, close }: GameProps) {
   // const [isPending, startTransition] = useTransition();
   const [isLoading, setIsLoading] = useState(false);
   const [gameId, setGameID] = useState<any>();
@@ -109,8 +111,9 @@ export default function GameMode({ setDisplay, close }: GameProps) {
               {Array.from({ length: 5 }).map((_, index) => (
                 <SliderMainItem key={index} className="bg-transparent">
                   <Image
-                    src={'/images/Xleafgreen_property_NFT5_apartment.webp'}
-                    alt=""
+                    src={data.cover_image}
+                    // src={'/images/Xleafgreen_property_NFT5_apartment.webp'}
+                    alt={data.type}
                     width={583}
                     height={474}
                     priority
@@ -120,15 +123,15 @@ export default function GameMode({ setDisplay, close }: GameProps) {
               ))}
             </CarouselMainContainer>
             <CarouselThumbsContainer>
-              {Array.from({ length: 5 }).map((_, index) => (
+              {data.images.map((image, index) => (
                 <SliderThumbItem
                   key={index}
                   index={index}
                   className="size-[130px] bg-transparent"
                 >
                   <Image
-                    src={'/images/Xleafgreen_property_NFT5_apartment.webp'}
-                    alt=""
+                    src={image}
+                    alt={data.type}
                     width={130}
                     height={130}
                     className="size-full"
@@ -136,13 +139,16 @@ export default function GameMode({ setDisplay, close }: GameProps) {
                   />
                 </SliderThumbItem>
               ))}
-              <Image
+              {/* {Array.from({ length: 5 }).map((_, index) => ( */}
+
+              {/* ))} */}
+              {/* <Image
                 src={'/images/Xleafgreen_property_NFT5_apartment.webp'}
                 alt=""
                 width={130}
                 height={130}
                 priority
-              />
+              /> */}
             </CarouselThumbsContainer>
           </Carousel>
         </div>
@@ -150,22 +156,19 @@ export default function GameMode({ setDisplay, close }: GameProps) {
         <div className="flex w-full max-w-[439px] flex-col gap-6 px-4">
           <div className="space-y-[18px]">
             <h1 className="text-[0.875rem] font-medium">Property 1</h1>
-            <DescriptionList title="Type" description="Apartment" />
+            <DescriptionList title="Type" description={data.type} />
             <p>One bed luxury apartment,</p>
             <div className="flex w-full items-center">
-              <DescriptionList title="Bedrooms" description="1" />
-              <DescriptionList title="Bathrooms" description="1" />
+              <DescriptionList title="Bedrooms" description={data.bedrooms} />
+              <DescriptionList title="Bathrooms" description={data.bathrooms} />
             </div>
-            <DescriptionList title="Size" description="552 sqft / 51 sqm" />
-            <DescriptionList title="Town/city" description="Hertford" />
-            <DescriptionList title="Post code" description="SG235TH" />
+            <DescriptionList title="Size" description={data.size} />
+            {/* <DescriptionList title="Town/city" description="Hertford" />
+            <DescriptionList title="Post code" description="SG235TH" /> */}
           </div>
           <div className="space-y-[18px]">
-            <h1 className="text-[0.875rem] font-medium">Key features</h1>
-            <p>
-              Private balcony. Communal roof terrace. Residents concierge service. Close
-              proximity to green spaces. 999 year lease with peppercorn ground rent
-            </p>
+            <h1 className="text-[0.875rem] font-medium">Summary</h1>
+            <p>{data.summary}</p>
           </div>
           <div className="space-y-5">
             <form onSubmit={onSubmit} className="flex w-full flex-col items-start gap-6">
@@ -196,7 +199,7 @@ export default function GameMode({ setDisplay, close }: GameProps) {
 
 interface DescriptionProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
-  description?: string;
+  description?: any;
 }
 
 const DescriptionList = ({ className, title, description }: DescriptionProps) => {

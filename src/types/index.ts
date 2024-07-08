@@ -13,11 +13,11 @@ export type GameData = {
   bedrooms: number;
   bathrooms: number;
   size: any;
-  address: string;
-  post_code: string;
-  features: string;
-  images?: string[];
-  location?: {
+  // address: string;
+  // post_code: string;
+  // features: string;
+  images: string[];
+  location: {
     latitude: any;
     longitude: any;
   };

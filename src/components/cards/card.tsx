@@ -9,7 +9,7 @@ export function Card({ className, title, description, children, ...props }: Card
   return (
     <section
       className={cn(
-        'flex w-full flex-col items-start gap-8 rounded-lg border border-[#3B4F74] bg-black/[0.20] px-4 py-6 shadow-header backdrop-blur-[8px] backdrop-filter',
+        'flex w-full flex-col items-start gap-8 rounded-lg border border-border bg-black/[0.20] px-4 py-6 shadow-header backdrop-blur',
         className
       )}
       {...props}
@@ -33,7 +33,7 @@ export function CardWithoutHeading({
   return (
     <section
       className={cn(
-        'flex w-full items-start gap-8 rounded-lg border border-[#3B4F74] bg-black/[0.20] px-4 py-6 shadow-header backdrop-blur-[8px] backdrop-filter',
+        'flex w-full items-start gap-8 rounded-lg border border-border bg-black/[0.20] px-4 py-6 shadow-header backdrop-blur',
         className
       )}
       {...props}

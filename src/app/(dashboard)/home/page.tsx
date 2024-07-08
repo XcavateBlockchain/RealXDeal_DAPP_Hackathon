@@ -14,6 +14,7 @@ import { getLeadBoards, getUserData } from '@/lib/queries';
 import ProfileHeader from './_components/profile-header';
 import { useSubstrateContext } from '@/context/polkadot-contex';
 import { useCallback, useEffect, useState } from 'react';
+import { fetchPropertyData } from '@/app/actions';
 
 // type Player = {
 //   Player: 1;
@@ -32,6 +33,8 @@ export default function App() {
 
   async function fetchData(address: string) {
     const boardList = await getLeadBoards();
+    // const property = await fetchPropertyData(139361966)
+    // console.log(property)
     const userData = await getUserData(address);
 
     if (userData !== null && boardList !== null) {
