@@ -1,7 +1,6 @@
 'use client';
-import { Card, CardWithoutHeading } from '@/components/cards/card';
+import { Card, CardWithoutHeading, TaskCard } from '@/components/cards/card';
 import { Shell } from '@/components/shell';
-import { TaskCard } from '../tasks/page';
 import Image from 'next/image';
 // import { Button } from '@/components/ui/button';
 import { PlayerStats } from '@/components/cards/player-stats-card';
