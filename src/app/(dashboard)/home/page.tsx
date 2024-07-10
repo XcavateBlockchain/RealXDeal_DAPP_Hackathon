@@ -12,7 +12,7 @@ import ProfileHeader from './_components/profile-header';
 import { useSubstrateContext } from '@/context/polkadot-contex';
 import { useCallback, useEffect, useState } from 'react';
 
-export default function App() {
+export default function Page() {
   const { address } = useSubstrateContext();
   const [user, setUser] = useState<any>();
   const [lists, setLists] = useState<any>([]);
