@@ -1,40 +1,24 @@
 'use client';
-import { Card, CardWithoutHeading } from '@/components/cards/card';
+
+import { Card, CardWithoutHeading, TaskCard } from '@/components/cards/card';
 import { Shell } from '@/components/shell';
-import { TaskCard } from '../tasks/page';
+
 import Image from 'next/image';
-// import { Button } from '@/components/ui/button';
 import { PlayerStats } from '@/components/cards/player-stats-card';
 import { LeadBoardCard } from '@/components/cards/leadboard-card';
-// import Link from 'next/link';
-// import { getApi } from '@/lib/polkadot';
-// import { web3Enable, web3FromAddress } from '@polkadot/extension-dapp';
 import LiveGamePlay from './_components/live-game-container';
 import { getLeadBoards, getUserData } from '@/lib/queries';
 import ProfileHeader from './_components/profile-header';
 import { useSubstrateContext } from '@/context/polkadot-contex';
 import { useCallback, useEffect, useState } from 'react';
-import { fetchPropertyData } from '@/app/actions';
 
-// type Player = {
-//   Player: 1;
-// };
-
-// type Practice = {
-//   Practice: 0;
-// };
-
-// type GameType = Player | Practice;
-
-export default function App() {
+export default function Page() {
   const { address } = useSubstrateContext();
   const [user, setUser] = useState<any>();
   const [lists, setLists] = useState<any>([]);
 
   async function fetchData(address: string) {
     const boardList = await getLeadBoards();
-    // const property = await fetchPropertyData(139361966)
-    // console.log(property)
     const userData = await getUserData(address);
 
     if (userData !== null && boardList !== null) {
@@ -58,7 +42,7 @@ export default function App() {
       <ProfileHeader points={user?.points} />
       <section className=" flex w-full gap-[54px]">
         <CardWithoutHeading className="w-2/5">
-          <PlayerStats title="Guesses" value={10} />
+          <PlayerStats title="Guesses" value={Number(user?.wins) + Number(user?.losses)} />
           <PlayerStats title="Correct " value={user?.wins} />
           <PlayerStats title="Failed " value={user?.losses} />
         </CardWithoutHeading>
@@ -66,16 +50,9 @@ export default function App() {
         <div className="flex w-3/5 items-start gap-[29px]">
           <div className="flex h-full w-[172px] items-end justify-center rounded-lg border border-primary-400 bg-primary-400/[0.24] pb-2.5">
             <LiveGamePlay type={0} />
-
-            {/* <Button variant={'warning'} size={'md'} onClick={() => playGame({ Practice: 0 })}>
-              Demo Mode
-            </Button> */}
           </div>
           <div className="flex h-full w-[172px] items-end justify-center rounded-lg border border-primary-200 bg-primary-200/[0.24] pb-2.5">
             <LiveGamePlay type={1} />
-            {/* <Button variant={'secondary'} size={'md'} onClick={() => playGame({ Player: 1 })}>
-              Live Mode
-            </Button> */}
           </div>
         </div>
       </section>

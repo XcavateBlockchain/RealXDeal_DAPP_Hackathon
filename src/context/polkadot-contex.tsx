@@ -40,7 +40,7 @@ export interface SubstrateProps {
   children?: React.ReactNode;
 }
 
-if (typeof window !== 'undefined') {
+if (typeof window === 'undefined') {
   console.log('Window not found');
 }
 
